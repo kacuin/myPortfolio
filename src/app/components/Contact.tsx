@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Linkedin, Phone, Download, Send, CheckCircle } from "lucide-react";
+import cvFile from "../../assets/KC_Acuin_CV.pdf";
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -218,7 +219,7 @@ export function Contact() {
             </div>
 
             <a
-              href="KC_Acuin_CV_2026.docx"
+              href={cvFile}
               download
               style={{
                 display: "inline-flex",

@@ -294,6 +294,7 @@ function PhotoFrame() {
         src={theme === "dark" ? meNightImage : meDayImage}
         alt="KC Acuin"
         style={{
+          pointerEvents: "none",
           width: "100%",
           height: "100%",
           objectFit: "cover",

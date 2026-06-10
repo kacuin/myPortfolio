@@ -32,7 +32,7 @@ function CursorGlow() {
         height: 400,
         borderRadius: "50%",
         background:
-          "radial-gradient(circle, rgba(79,110,247,0.06) 0%, transparent 70%)",
+          "radial-gradient(circle, rgba(79,110,247,0.12) 0%, transparent 70%)",
         transform: "translate(-50%, -50%)",
         pointerEvents: "none",
         zIndex: 0,
@@ -46,8 +46,8 @@ export default function App() {
   return (
     <div
       style={{
-        background: "#0A0F1E",
-        color: "#F0F4FF",
+        background: "var(--background)",
+        color: "var(--foreground)",
         fontFamily: "'Inter', sans-serif",
         minHeight: "100vh",
         overflowX: "hidden",
@@ -57,12 +57,12 @@ export default function App() {
       <style>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background: #0A0F1E; overflow-x: hidden; }
+        body { background: var(--background); color: var(--foreground); overflow-x: hidden; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0A0F1E; }
-        ::-webkit-scrollbar-thumb { background: #1E2D50; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #4F6EF7; }
-        ::selection { background: rgba(79,110,247,0.3); color: #F0F4FF; }
+        ::-webkit-scrollbar-track { background: var(--background); }
+        ::-webkit-scrollbar-thumb { background: rgba(79,110,247,0.25); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(79,110,247,0.45); }
+        ::selection { background: rgba(79,110,247,0.22); color: var(--foreground); }
         input, textarea { box-sizing: border-box; }
 
         @media (max-width: 768px) {

@@ -24,8 +24,8 @@ export function Footer() {
   return (
     <footer
       style={{
-        borderTop: "1px solid #1E2D50",
-        background: "#0A0F1E",
+        borderTop: "1px solid var(--color-border)",
+        background: "var(--color-bg)",
         padding: "48px 0 32px",
       }}
     >
@@ -47,7 +47,7 @@ export function Footer() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontWeight: 700,
                 fontSize: 24,
-                color: "#4F6EF7",
+                color: "var(--color-accent)",
                 marginBottom: 8,
               }}
             >
@@ -57,7 +57,7 @@ export function Footer() {
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: 13,
-                color: "#8892B0",
+                color: "var(--color-text-muted)",
                 maxWidth: 220,
                 lineHeight: 1.6,
               }}
@@ -72,7 +72,7 @@ export function Footer() {
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 11,
-                color: "#4A5578",
+                color: "var(--color-text-subtle)",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
               }}
@@ -88,12 +88,12 @@ export function Footer() {
                   style={{
                     fontFamily: "'Inter', sans-serif",
                     fontSize: 14,
-                    color: "#8892B0",
+                    color: "var(--color-text-muted)",
                     textDecoration: "none",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#F0F4FF"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8892B0"; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-muted)"; }}
                 >
                   {l.label}
                 </a>
@@ -107,7 +107,7 @@ export function Footer() {
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 11,
-                color: "#4A5578",
+                color: "var(--color-text-subtle)",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
               }}
@@ -127,12 +127,12 @@ export function Footer() {
                     gap: 10,
                     fontFamily: "'Inter', sans-serif",
                     fontSize: 14,
-                    color: "#8892B0",
+                    color: "var(--color-text-muted)",
                     textDecoration: "none",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#4F6EF7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#8892B0"; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-accent)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-muted)"; }}
                 >
                   {s.icon} {s.label}
                 </a>
@@ -146,7 +146,7 @@ export function Footer() {
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 11,
-                color: "#4A5578",
+                color: "var(--color-text-subtle)",
                 letterSpacing: "0.1em",
                 marginBottom: 16,
               }}
@@ -171,7 +171,7 @@ export function Footer() {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#64FFDA",
+                  background: "var(--color-teal)",
                   flexShrink: 0,
                 }}
               />
@@ -179,7 +179,7 @@ export function Footer() {
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 12,
-                  color: "#64FFDA",
+                  color: "var(--color-teal)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -192,7 +192,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div
           style={{
-            borderTop: "1px solid #1E2D50",
+            borderTop: "1px solid var(--color-border)",
             paddingTop: 24,
             display: "flex",
             justifyContent: "space-between",
@@ -205,22 +205,22 @@ export function Footer() {
             style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 12,
-              color: "#4A5578",
+              color: "var(--color-text-subtle)",
             }}
           >
-            © 2026 <span style={{ color: "#4F6EF7" }}>KC Acuin</span> · Caloocan, Philippines
+            © 2026 <span style={{ color: "var(--color-accent)" }}>KC Acuin</span> · Caloocan, Philippines
           </p>
           <p
             style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 12,
-              color: "#4A5578",
+              color: "var(--color-text-subtle)",
               display: "flex",
               alignItems: "center",
               gap: 6,
             }}
           >
-            Built with <Heart size={12} style={{ color: "#4F6EF7" }} /> React + Tailwind
+            Built with <Heart size={12} style={{ color: "var(--color-accent)" }} /> React + Tailwind
           </p>
         </div>
       </div>

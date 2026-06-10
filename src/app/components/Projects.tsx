@@ -8,11 +8,11 @@
 //     type: "Mobile · Flutter",
 //     icon: <Smartphone size={20} />,
 //     status: "Active",
-//     statusColor: "#64FFDA",
+//     statusColor: "var(--color-teal)",
 //     description:
 //       "All-in-one service booking platform built in Flutter. Integrates Firebase for real-time sync, Google Maps API for location services, and multiple third-party SDKs. Led mobile architecture from scratch.",
 //     tags: ["Flutter", "Firebase", "Google Maps API", "Dart", "Riverpod"],
-//     color: "#4F6EF7",
+//     color: "var(--color-accent)",
 //     year: "2026",
 //     role: "Mobile Lead",
 //     highlights: [
@@ -27,11 +27,11 @@
 //     type: "Web · Laravel",
 //     icon: <Globe size={20} />,
 //     status: "Shipped",
-//     statusColor: "#F5A623",
+//     statusColor: "var(--color-amber)",
 //     description:
 //       "Lending management system migrated from microservices to a clean monolith. Built UI/UX in Figma, implemented frontend, and designed the future system architecture roadmap.",
 //     tags: ["Laravel", "PHP", "Figma", "MySQL", "Livewire"],
-//     color: "#64FFDA",
+//     color: "var(--color-teal)",
 //     year: "2023–2024",
 //     role: "Full Stack Dev",
 //     highlights: [
@@ -46,11 +46,11 @@
 //     type: "Web · Laravel",
 //     icon: <Globe size={20} />,
 //     status: "Ongoing",
-//     statusColor: "#4F6EF7",
+//     statusColor: "var(--color-accent)",
 //     description:
 //       "Internal procurement project tracker for Polytechnic University of the Philippines. Completed full SDLC — from requirements gathering to deployment and ongoing maintenance.",
 //     tags: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "Alpine.js"],
-//     color: "#F5A623",
+//     color: "var(--color-amber)",
 //     year: "2024–Present",
 //     role: "Full Stack Dev",
 //     highlights: [
@@ -66,7 +66,7 @@
 //   const [selected, setSelected] = useState<(typeof projects)[0] | null>(null);
 
 //   return (
-//     <section id="projects" style={{ padding: "100px 0", background: "#0F1729" }}>
+//     <section id="projects" style={{ padding: "100px 0", background: "var(--color-surface-alt)" }}>
 //       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
 //         <motion.div
 //           initial={{ opacity: 0, y: 16 }}
@@ -75,7 +75,7 @@
 //           style={{
 //             fontFamily: "'JetBrains Mono', monospace",
 //             fontSize: 12,
-//             color: "#4F6EF7",
+//             color: "var(--color-accent)",
 //             letterSpacing: "0.15em",
 //             marginBottom: 12,
 //             display: "flex",
@@ -89,7 +89,7 @@
 //               flex: 1,
 //               maxWidth: 60,
 //               height: 1,
-//               background: "#4F6EF7",
+//               background: "var(--color-accent)",
 //               opacity: 0.4,
 //               display: "block",
 //             }}
@@ -106,7 +106,7 @@
 //             fontSize: "clamp(28px, 4vw, 42px)",
 //             fontWeight: 700,
 //             letterSpacing: "-0.02em",
-//             color: "#F0F4FF",
+//             color: "var(--color-text)",
 //             marginBottom: 12,
 //           }}
 //         >
@@ -118,7 +118,7 @@
 //           whileInView={{ opacity: 1, y: 0 }}
 //           viewport={{ once: true }}
 //           transition={{ delay: 0.15 }}
-//           style={{ color: "#8892B0", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
+//           style={{ color: "var(--color-text-muted)", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
 //         >
 //           Production apps across mobile and web — each one owned end-to-end. Click any card to see details.
 //         </motion.p>
@@ -140,8 +140,8 @@
 //               whileHover={{ y: -6 }}
 //               onClick={() => setSelected(p)}
 //               style={{
-//                 background: "#131C35",
-//                 border: "1px solid #1E2D50",
+//                 background: "var(--color-surface)",
+//                 border: "1px solid var(--color-border)",
 //                 borderRadius: 16,
 //                 padding: 28,
 //                 cursor: "pointer",
@@ -153,7 +153,7 @@
 //                 (e.currentTarget as HTMLElement).style.borderColor = p.color;
 //               }}
 //               onMouseLeave={(e) => {
-//                 (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+//                 (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
 //               }}
 //             >
 //               {/* Subtle gradient top accent */}
@@ -212,7 +212,7 @@
 //                   fontFamily: "'Space Grotesk', sans-serif",
 //                   fontSize: 20,
 //                   fontWeight: 700,
-//                   color: "#F0F4FF",
+//                   color: "var(--color-text)",
 //                   marginBottom: 6,
 //                 }}
 //               >
@@ -223,7 +223,7 @@
 //                 style={{
 //                   fontFamily: "'JetBrains Mono', monospace",
 //                   fontSize: 12,
-//                   color: "#4A5578",
+//                   color: "var(--color-text-subtle)",
 //                   marginBottom: 16,
 //                 }}
 //               >
@@ -233,7 +233,7 @@
 //               <p
 //                 style={{
 //                   fontSize: 14,
-//                   color: "#8892B0",
+//                   color: "var(--color-text-muted)",
 //                   lineHeight: 1.7,
 //                   marginBottom: 20,
 //                 }}
@@ -248,9 +248,9 @@
 //                     style={{
 //                       fontFamily: "'JetBrains Mono', monospace",
 //                       fontSize: 11,
-//                       color: "#8892B0",
+//                       color: "var(--color-text-muted)",
 //                       background: "rgba(136,146,176,0.08)",
-//                       border: "1px solid #4A5578",
+//                       border: "1px solid var(--color-text-subtle)",
 //                       padding: "3px 10px",
 //                       borderRadius: 100,
 //                     }}
@@ -266,7 +266,7 @@
 //                   alignItems: "center",
 //                   gap: 6,
 //                   marginTop: 20,
-//                   color: "#4F6EF7",
+//                   color: "var(--color-accent)",
 //                   fontFamily: "'JetBrains Mono', monospace",
 //                   fontSize: 12,
 //                 }}
@@ -305,7 +305,7 @@
 //                 top: "25%",
 //                 left: "25%",
 //                 zIndex: 201,
-//                 background: "#131C35",
+//                 background: "var(--color-surface)",
 //                 border: `1px solid ${selected.color}50`,
 //                 borderRadius: 20,
 //                 padding: 40,
@@ -324,7 +324,7 @@
 //                   background: "rgba(136,146,176,0.1)",
 //                   border: "none",
 //                   borderRadius: 8,
-//                   color: "#8892B0",
+//                   color: "var(--color-text-muted)",
 //                   cursor: "pointer",
 //                   padding: 8,
 //                   display: "flex",
@@ -355,7 +355,7 @@
 //                   fontFamily: "'Space Grotesk', sans-serif",
 //                   fontSize: 26,
 //                   fontWeight: 700,
-//                   color: "#F0F4FF",
+//                   color: "var(--color-text)",
 //                   marginBottom: 4,
 //                 }}
 //               >
@@ -365,7 +365,7 @@
 //                 style={{
 //                   fontFamily: "'JetBrains Mono', monospace",
 //                   fontSize: 12,
-//                   color: "#4A5578",
+//                   color: "var(--color-text-subtle)",
 //                   marginBottom: 20,
 //                 }}
 //               >
@@ -374,7 +374,7 @@
 
 //               <p
 //                 style={{
-//                   color: "#8892B0",
+//                   color: "var(--color-text-muted)",
 //                   fontSize: 15,
 //                   lineHeight: 1.8,
 //                   marginBottom: 28,
@@ -387,7 +387,7 @@
 //                 style={{
 //                   fontFamily: "'JetBrains Mono', monospace",
 //                   fontSize: 11,
-//                   color: "#4F6EF7",
+//                   color: "var(--color-accent)",
 //                   letterSpacing: "0.1em",
 //                   marginBottom: 14,
 //                 }}
@@ -400,11 +400,11 @@
 //                     key={i}
 //                     style={{
 //                       fontSize: 14,
-//                       color: "#8892B0",
+//                       color: "var(--color-text-muted)",
 //                       padding: "6px 0 6px 18px",
 //                       position: "relative",
 //                       lineHeight: 1.6,
-//                       borderBottom: i < selected.highlights.length - 1 ? "1px solid #1E2D50" : "none",
+//                       borderBottom: i < selected.highlights.length - 1 ? "1px solid var(--color-border)" : "none",
 //                     }}
 //                   >
 //                     <span
@@ -430,9 +430,9 @@
 //                     style={{
 //                       fontFamily: "'JetBrains Mono', monospace",
 //                       fontSize: 11,
-//                       color: "#8892B0",
+//                       color: "var(--color-text-muted)",
 //                       background: "rgba(136,146,176,0.08)",
-//                       border: "1px solid #4A5578",
+//                       border: "1px solid var(--color-text-subtle)",
 //                       padding: "4px 12px",
 //                       borderRadius: 100,
 //                     }}
@@ -458,11 +458,11 @@ const projects = [
     type: "Mobile · Flutter",
     icon: <Smartphone size={20} />,
     status: "Active",
-    statusColor: "#64FFDA",
+    statusColor: "var(--color-teal)",
     description:
       "All-in-one service booking platform built in Flutter. Integrates Firebase for real-time sync, Google Maps API for location services, and multiple third-party SDKs. Led mobile architecture from scratch.",
     tags: ["Flutter", "Firebase", "Google Maps API", "Dart", "Riverpod"],
-    color: "#4F6EF7",
+    color: "var(--color-accent)",
     year: "2026",
     role: "Mobile Lead",
     highlights: [
@@ -477,11 +477,11 @@ const projects = [
     type: "Web · Laravel",
     icon: <Globe size={20} />,
     status: "Shipped",
-    statusColor: "#F5A623",
+    statusColor: "var(--color-amber)",
     description:
       "Lending management system migrated from microservices to a clean monolith. Built UI/UX in Figma, implemented frontend, and designed the future system architecture roadmap.",
     tags: ["Laravel", "PHP", "Figma", "MySQL", "Livewire"],
-    color: "#64FFDA",
+    color: "var(--color-teal)",
     year: "2023–2024",
     role: "Full Stack Dev",
     highlights: [
@@ -496,11 +496,11 @@ const projects = [
     type: "Web · Laravel",
     icon: <Globe size={20} />,
     status: "Ongoing",
-    statusColor: "#4F6EF7",
+    statusColor: "var(--color-accent)",
     description:
       "Internal procurement project tracker for Polytechnic University of the Philippines. Completed full SDLC — from requirements gathering to deployment and ongoing maintenance.",
     tags: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "Alpine.js"],
-    color: "#F5A623",
+    color: "var(--color-amber)",
     year: "2024–Present",
     role: "Full Stack Dev",
     highlights: [
@@ -526,7 +526,7 @@ export function Projects() {
   };
 
   return (
-    <section id="projects" style={{ padding: "100px 0", background: "#0F1729" }}>
+    <section id="projects" style={{ padding: "100px 0", background: "var(--color-surface-alt)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -535,7 +535,7 @@ export function Projects() {
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 12,
-            color: "#4F6EF7",
+            color: "var(--color-accent)",
             letterSpacing: "0.15em",
             marginBottom: 12,
             display: "flex",
@@ -549,7 +549,7 @@ export function Projects() {
               flex: 1,
               maxWidth: 60,
               height: 1,
-              background: "#4F6EF7",
+              background: "var(--color-accent)",
               opacity: 0.4,
               display: "block",
             }}
@@ -566,7 +566,7 @@ export function Projects() {
             fontSize: "clamp(28px, 4vw, 42px)",
             fontWeight: 700,
             letterSpacing: "-0.02em",
-            color: "#F0F4FF",
+            color: "var(--color-text)",
             marginBottom: 12,
           }}
         >
@@ -578,7 +578,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          style={{ color: "#8892B0", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
+          style={{ color: "var(--color-text-muted)", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
         >
           Production apps across mobile and web — each one owned end-to-end. Click any card to see details.
         </motion.p>
@@ -600,8 +600,8 @@ export function Projects() {
               whileHover={{ y: -6 }}
               onClick={() => openModal(p)}
               style={{
-                background: "#131C35",
-                border: "1px solid #1E2D50",
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-border)",
                 borderRadius: 16,
                 padding: 28,
                 cursor: "pointer",
@@ -613,7 +613,7 @@ export function Projects() {
                 (e.currentTarget as HTMLElement).style.borderColor = p.color;
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
               }}
             >
               {/* Subtle gradient top accent */}
@@ -672,7 +672,7 @@ export function Projects() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 20,
                   fontWeight: 700,
-                  color: "#F0F4FF",
+                  color: "var(--color-text)",
                   marginBottom: 6,
                 }}
               >
@@ -683,7 +683,7 @@ export function Projects() {
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 12,
-                  color: "#4A5578",
+                  color: "var(--color-text-subtle)",
                   marginBottom: 16,
                 }}
               >
@@ -693,7 +693,7 @@ export function Projects() {
               <p
                 style={{
                   fontSize: 14,
-                  color: "#8892B0",
+                  color: "var(--color-text-muted)",
                   lineHeight: 1.7,
                   marginBottom: 20,
                 }}
@@ -708,9 +708,9 @@ export function Projects() {
                     style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: 11,
-                      color: "#8892B0",
+                      color: "var(--color-text-muted)",
                       background: "rgba(136,146,176,0.08)",
-                      border: "1px solid #4A5578",
+                      border: "1px solid var(--color-text-subtle)",
                       padding: "3px 10px",
                       borderRadius: 100,
                     }}
@@ -726,7 +726,7 @@ export function Projects() {
                   alignItems: "center",
                   gap: 6,
                   marginTop: 20,
-                  color: "#4F6EF7",
+                  color: "var(--color-accent)",
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 12,
                 }}
@@ -786,7 +786,7 @@ export function Projects() {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 onClick={(e) => e.stopPropagation()}
                 style={{
-                  background: "#131C35",
+                  background: "var(--color-surface)",
                   border: `1px solid ${selected.color}50`,
                   borderRadius: 20,
                   padding: "40px",
@@ -806,7 +806,7 @@ export function Projects() {
                     background: "rgba(136,146,176,0.1)",
                     border: "none",
                     borderRadius: 8,
-                    color: "#8892B0",
+                    color: "var(--color-text-muted)",
                     cursor: "pointer",
                     padding: 8,
                     display: "flex",
@@ -837,7 +837,7 @@ export function Projects() {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: 26,
                     fontWeight: 700,
-                    color: "#F0F4FF",
+                    color: "var(--color-text)",
                     marginBottom: 4,
                   }}
                 >
@@ -847,7 +847,7 @@ export function Projects() {
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 12,
-                    color: "#4A5578",
+                    color: "var(--color-text-subtle)",
                     marginBottom: 20,
                   }}
                 >
@@ -856,7 +856,7 @@ export function Projects() {
 
                 <p
                   style={{
-                    color: "#8892B0",
+                    color: "var(--color-text-muted)",
                     fontSize: 15,
                     lineHeight: 1.8,
                     marginBottom: 28,
@@ -869,7 +869,7 @@ export function Projects() {
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 11,
-                    color: "#4F6EF7",
+                    color: "var(--color-accent)",
                     letterSpacing: "0.1em",
                     marginBottom: 14,
                   }}
@@ -882,13 +882,13 @@ export function Projects() {
                       key={i}
                       style={{
                         fontSize: 14,
-                        color: "#8892B0",
+                        color: "var(--color-text-muted)",
                         padding: "6px 0 6px 18px",
                         position: "relative",
                         lineHeight: 1.6,
                         borderBottom:
                           i < selected.highlights.length - 1
-                            ? "1px solid #1E2D50"
+                            ? "1px solid var(--color-border)"
                             : "none",
                       }}
                     >
@@ -915,9 +915,9 @@ export function Projects() {
                       style={{
                         fontFamily: "'JetBrains Mono', monospace",
                         fontSize: 11,
-                        color: "#8892B0",
+                        color: "var(--color-text-muted)",
                         background: "rgba(136,146,176,0.08)",
-                        border: "1px solid #4A5578",
+                        border: "1px solid var(--color-text-subtle)",
                         padding: "4px 12px",
                         borderRadius: 100,
                       }}

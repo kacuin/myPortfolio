@@ -16,7 +16,7 @@ const cardRows = [
 
 export function About() {
   return (
-    <section id="about" style={{ padding: "100px 0", background: "#0A0F1E" }}>
+    <section id="about" style={{ padding: "100px 0", background: "var(--color-bg)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
         <div
           style={{
@@ -35,7 +35,7 @@ export function About() {
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 12,
-                color: "#4F6EF7",
+                color: "var(--color-accent)",
                 letterSpacing: "0.15em",
                 marginBottom: 12,
                 display: "flex",
@@ -44,7 +44,7 @@ export function About() {
               }}
             >
               01 · ABOUT
-              <span style={{ flex: 1, maxWidth: 60, height: 1, background: "#4F6EF7", opacity: 0.4, display: "block" }} />
+              <span style={{ flex: 1, maxWidth: 60, height: 1, background: "var(--color-accent)", opacity: 0.4, display: "block" }} />
             </motion.div>
 
             <motion.h2
@@ -57,7 +57,7 @@ export function About() {
                 fontSize: "clamp(28px, 4vw, 42px)",
                 fontWeight: 700,
                 letterSpacing: "-0.02em",
-                color: "#F0F4FF",
+                color: "var(--color-text)",
                 marginBottom: 24,
               }}
             >
@@ -65,9 +65,9 @@ export function About() {
             </motion.h2>
 
             {[
-              <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "#F0F4FF", fontWeight: 500 }}>Team Lead and System Architect</strong> within three years — at the same company, through shipped features, measurable outcomes, and earned trust.</>,
-              <>My work spans the full stack: mobile-first with Flutter and React Native, backend with Laravel, and everything in between. I don't just write code — I <strong style={{ color: "#F0F4FF", fontWeight: 500 }}>own systems</strong>, make architecture decisions, write ADRs, mentor engineers, and run Agile ceremonies.</>,
-              <>Outside of work, I'm a <strong style={{ color: "#F0F4FF", fontWeight: 500 }}>lay preacher and ministry worker</strong> with a Filipino church team. That work — communicating complex ideas clearly to diverse audiences — sharpens how I think about technical communication and leading teams.</>,
+              <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>Team Lead and System Architect</strong> within three years — at the same company, through shipped features, measurable outcomes, and earned trust.</>,
+              <>My work spans the full stack: mobile-first with Flutter and React Native, backend with Laravel, and everything in between. I don't just write code — I <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>own systems</strong>, make architecture decisions, write ADRs, mentor engineers, and run Agile ceremonies.</>,
+              <>Outside of work, I'm a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>lay preacher and ministry worker</strong> with a Filipino church team. That work — communicating complex ideas clearly to diverse audiences — sharpens how I think about technical communication and leading teams.</>,
             ].map((p, i) => (
               <motion.p
                 key={i}
@@ -75,7 +75,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.15 + i * 0.1 }}
-                style={{ color: "#8892B0", lineHeight: 1.85, marginBottom: 20, fontSize: 15.5 }}
+                style={{ color: "var(--color-text-muted)", lineHeight: 1.85, marginBottom: 20, fontSize: 15.5 }}
               >
                 {p}
               </motion.p>
@@ -94,8 +94,8 @@ export function About() {
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 12,
-                    color: "#64FFDA",
-                    background: "rgba(100,255,218,0.07)",
+                    color: "var(--color-teal)",
+                    background: "var(--color-teal-dim)",
                     border: "1px solid rgba(100,255,218,0.15)",
                     padding: "4px 12px",
                     borderRadius: 100,
@@ -113,8 +113,8 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
             style={{
-              background: "#131C35",
-              border: "1px solid #1E2D50",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
               borderRadius: 16,
               padding: 32,
             }}
@@ -127,7 +127,7 @@ export function About() {
                   alignItems: "flex-start",
                   gap: 16,
                   padding: "16px 0",
-                  borderBottom: i < cardRows.length - 1 ? "1px solid #1E2D50" : "none",
+                  borderBottom: i < cardRows.length - 1 ? "1px solid var(--color-border)" : "none",
                 }}
               >
                 <div
@@ -140,20 +140,20 @@ export function About() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#4F6EF7",
+                    color: "var(--color-accent)",
                     flexShrink: 0,
                   }}
                 >
                   {row.icon}
                 </div>
                 <div>
-                  <div style={{ fontSize: 12, color: "#8892B0", marginBottom: 2 }}>{row.label}</div>
+                  <div style={{ fontSize: 12, color: "var(--color-text-muted)", marginBottom: 2 }}>{row.label}</div>
                   <div
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: 15,
                       fontWeight: 500,
-                      color: "#F0F4FF",
+                      color: "var(--color-text)",
                     }}
                   >
                     {row.val}

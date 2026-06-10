@@ -6,43 +6,43 @@ const skills = [
     icon: <Smartphone size={24} />,
     title: "Mobile Development",
     tags: ["Flutter", "Dart", "React Native", "iOS Swift", "Objective-C", "Android Kotlin", "Java", "Firebase"],
-    color: "#4F6EF7",
+    color: "var(--color-accent)",
   },
   {
     icon: <Globe size={24} />,
     title: "Web & Backend",
     tags: ["Laravel", "PHP", "Node.js", "TypeScript", "Livewire", "Alpine.js", "Tailwind CSS", "REST APIs", "MySQL"],
-    color: "#64FFDA",
+    color: "var(--color-teal)",
   },
   {
     icon: <Settings size={24} />,
     title: "DevOps & Architecture",
     tags: ["GitHub Actions", "Docker", "Expo EAS", "CI/CD", "Clean Architecture", "Riverpod", "GoRouter", "ADRs"],
-    color: "#F5A623",
+    color: "var(--color-amber)",
   },
   {
     icon: <Bot size={24} />,
     title: "AI-Assisted Development",
     tags: ["GitHub Copilot", "MCP Agents", "Claude", "Cursor", "Grok", "Prompt Engineering"],
-    color: "#4F6EF7",
+    color: "var(--color-accent)",
   },
   {
     icon: <Crown size={24} />,
     title: "Leadership & Management",
     tags: ["Team Lead", "Agile/Scrum", "Mentoring", "Roadmap Ownership", "Stakeholder Mgmt", "Risk Mitigation"],
-    color: "#64FFDA",
+    color: "var(--color-teal)",
   },
   {
     icon: <Palette size={24} />,
     title: "Design & Tooling",
     tags: ["Figma", "UI/UX Design", "Wireframing", "Prototyping", "Git", "Jira"],
-    color: "#F5A623",
+    color: "var(--color-amber)",
   },
 ];
 
 export function Skills() {
   return (
-    <section id="skills" style={{ padding: "100px 0", background: "#0A0F1E" }}>
+    <section id="skills" style={{ padding: "100px 0", background: "var(--color-bg)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -51,7 +51,7 @@ export function Skills() {
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 12,
-            color: "#4F6EF7",
+            color: "var(--color-accent)",
             letterSpacing: "0.15em",
             marginBottom: 12,
             display: "flex",
@@ -60,7 +60,7 @@ export function Skills() {
           }}
         >
           03 · SKILLS
-          <span style={{ flex: 1, maxWidth: 60, height: 1, background: "#4F6EF7", opacity: 0.4, display: "block" }} />
+          <span style={{ flex: 1, maxWidth: 60, height: 1, background: "var(--color-accent)", opacity: 0.4, display: "block" }} />
         </motion.div>
 
         <motion.h2
@@ -73,7 +73,7 @@ export function Skills() {
             fontSize: "clamp(28px, 4vw, 42px)",
             fontWeight: 700,
             letterSpacing: "-0.02em",
-            color: "#F0F4FF",
+            color: "var(--color-text)",
             marginBottom: 12,
           }}
         >
@@ -85,7 +85,7 @@ export function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          style={{ color: "#8892B0", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
+          style={{ color: "var(--color-text-muted)", fontSize: 16, marginBottom: 64, maxWidth: 500 }}
         >
           Technical depth across mobile, web, and leadership — plus the AI tooling to move faster than a solo team should.
         </motion.p>
@@ -106,8 +106,8 @@ export function Skills() {
               transition={{ delay: i * 0.08, duration: 0.5 }}
               whileHover={{ y: -6, borderColor: s.color }}
               style={{
-                background: "#131C35",
-                border: "1px solid #1E2D50",
+                background: "var(--color-surface)",
+                border: "1px solid var(--color-border)",
                 borderRadius: 16,
                 padding: 28,
                 cursor: "default",
@@ -135,7 +135,7 @@ export function Skills() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 16,
                   fontWeight: 600,
-                  color: "#F0F4FF",
+                  color: "var(--color-text)",
                   marginBottom: 14,
                 }}
               >
@@ -148,9 +148,9 @@ export function Skills() {
                     style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: 11,
-                      color: "#8892B0",
+                      color: "var(--color-text-muted)",
                       background: "rgba(136,146,176,0.08)",
-                      border: "1px solid #4A5578",
+                      border: "1px solid var(--color-text-subtle)",
                       padding: "3px 10px",
                       borderRadius: 100,
                     }}

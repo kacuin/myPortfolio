@@ -60,7 +60,7 @@ const categories = [
 
 export function Stack() {
   return (
-    <section id="stack" style={{ padding: "100px 0", background: "#0F1729" }}>
+    <section id="stack" style={{ padding: "100px 0", background: "var(--color-surface-alt)" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 32px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -69,7 +69,7 @@ export function Stack() {
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 12,
-            color: "#4F6EF7",
+            color: "var(--color-accent)",
             letterSpacing: "0.15em",
             marginBottom: 12,
             display: "flex",
@@ -78,7 +78,7 @@ export function Stack() {
           }}
         >
           04 · TECH STACK
-          <span style={{ flex: 1, maxWidth: 60, height: 1, background: "#4F6EF7", opacity: 0.4, display: "block" }} />
+          <span style={{ flex: 1, maxWidth: 60, height: 1, background: "var(--color-accent)", opacity: 0.4, display: "block" }} />
         </motion.div>
 
         <motion.h2
@@ -91,7 +91,7 @@ export function Stack() {
             fontSize: "clamp(28px, 4vw, 42px)",
             fontWeight: 700,
             letterSpacing: "-0.02em",
-            color: "#F0F4FF",
+            color: "var(--color-text)",
             marginBottom: 12,
           }}
         >
@@ -103,7 +103,7 @@ export function Stack() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
-          style={{ color: "#8892B0", fontSize: 16, marginBottom: 64 }}
+          style={{ color: "var(--color-text-muted)", fontSize: 16, marginBottom: 64 }}
         >
           The daily drivers, organized by layer.
         </motion.p>
@@ -122,7 +122,7 @@ export function Stack() {
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 11,
-                  color: "#8892B0",
+                  color: "var(--color-text-muted)",
                   letterSpacing: "0.1em",
                   minWidth: 100,
                 }}
@@ -138,9 +138,9 @@ export function Stack() {
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: 14,
                       fontWeight: 500,
-                      color: chip.highlight ? "#4F6EF7" : "#F0F4FF",
-                      background: chip.highlight ? "rgba(79,110,247,0.1)" : "#131C35",
-                      border: `1px solid ${chip.highlight ? "rgba(79,110,247,0.4)" : "#1E2D50"}`,
+                      color: chip.highlight ? "var(--color-accent)" : "var(--color-text)",
+                      background: chip.highlight ? "var(--color-accent-dim)" : "var(--color-surface)",
+                      border: `1px solid ${chip.highlight ? "rgba(79,110,247,0.4)" : "var(--color-border)"}`,
                       padding: "8px 18px",
                       borderRadius: 100,
                       cursor: "default",

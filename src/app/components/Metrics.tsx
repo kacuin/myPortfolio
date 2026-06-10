@@ -31,25 +31,25 @@ const metrics = [
     num: 3,
     suffix: "+",
     label: "Years in production\ndevelopment",
-    color: "#4F6EF7",
+    color: "var(--color-accent)",
   },
   {
     num: 68,
     suffix: "%",
     label: "App crash rate\nreduction",
-    color: "#64FFDA",
+    color: "var(--color-teal)",
   },
   {
     num: 70,
     suffix: "%",
     label: "Debugging time cut\nvia AI tooling",
-    color: "#F5A623",
+    color: "var(--color-amber)",
   },
   {
     num: 3,
     suffix: "",
     label: "Week→4d release\ncycle improvement",
-    color: "#4F6EF7",
+    color: "var(--color-accent)",
   },
 ];
 
@@ -57,9 +57,9 @@ export function Metrics() {
   return (
     <section
       style={{
-        background: "#131C35",
-        borderTop: "1px solid #1E2D50",
-        borderBottom: "1px solid #1E2D50",
+        background: "var(--color-surface)",
+        borderTop: "1px solid var(--color-border)",
+        borderBottom: "1px solid var(--color-border)",
         padding: "56px 0",
       }}
     >
@@ -82,7 +82,7 @@ export function Metrics() {
               style={{
                 textAlign: "center",
                 padding: "16px 24px",
-                borderRight: i < metrics.length - 1 ? "1px solid #1E2D50" : "none",
+                borderRight: i < metrics.length - 1 ? "1px solid var(--color-border)" : "none",
               }}
             >
               <div
@@ -98,9 +98,9 @@ export function Metrics() {
                 {i === 3 ? (
                   <>
                     <AnimatedNumber target={3} />
-                    <span style={{ color: "#F5A623", fontSize: "0.7em" }}>wk→</span>
+                    <span style={{ color: "var(--color-amber)", fontSize: "0.7em" }}>wk→</span>
                     <AnimatedNumber target={4} />
-                    <span style={{ color: "#F5A623", fontSize: "0.7em" }}>d</span>
+                    <span style={{ color: "var(--color-amber)", fontSize: "0.7em" }}>d</span>
                   </>
                 ) : (
                   <AnimatedNumber target={m.num} suffix={m.suffix} />
@@ -109,7 +109,7 @@ export function Metrics() {
               <div
                 style={{
                   fontSize: 13,
-                  color: "#8892B0",
+                  color: "var(--color-text-muted)",
                   lineHeight: 1.5,
                   whiteSpace: "pre-line",
                 }}

@@ -20,11 +20,11 @@ export function Contact() {
 
   const inputStyle = {
     width: "100%",
-    background: "#131C35",
-    border: "1px solid #1E2D50",
+    background: "var(--color-surface)",
+    border: "1px solid var(--color-border)",
     borderRadius: 10,
     padding: "14px 16px",
-    color: "#F0F4FF",
+    color: "var(--color-text)",
     fontFamily: "'Inter', sans-serif",
     fontSize: 15,
     outline: "none",
@@ -52,7 +52,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      style={{ padding: "120px 0", background: "#0A0F1E", position: "relative", overflow: "hidden" }}
+      style={{ padding: "120px 0", background: "var(--color-bg)", position: "relative", overflow: "hidden" }}
     >
       {/* Glow */}
       <div
@@ -97,7 +97,7 @@ export function Contact() {
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 12,
-            color: "#4F6EF7",
+            color: "var(--color-accent)",
             letterSpacing: "0.15em",
             marginBottom: 12,
             display: "flex",
@@ -112,7 +112,7 @@ export function Contact() {
               display: "block",
               width: 60,
               height: 1,
-              background: "#4F6EF7",
+              background: "var(--color-accent)",
               opacity: 0.4,
             }}
           />
@@ -128,7 +128,7 @@ export function Contact() {
             fontSize: "clamp(36px, 6vw, 64px)",
             fontWeight: 700,
             letterSpacing: "-0.02em",
-            color: "#F0F4FF",
+            color: "var(--color-text)",
             marginBottom: 16,
             textAlign: "center",
           }}
@@ -142,7 +142,7 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ delay: 0.15 }}
           style={{
-            color: "#8892B0",
+            color: "var(--color-text-muted)",
             fontSize: 16,
             marginBottom: 64,
             textAlign: "center",
@@ -174,7 +174,7 @@ export function Contact() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: 20,
                 fontWeight: 600,
-                color: "#F0F4FF",
+                color: "var(--color-text)",
                 marginBottom: 24,
               }}
             >
@@ -193,9 +193,9 @@ export function Contact() {
                     display: "flex",
                     alignItems: "center",
                     gap: 14,
-                    background: "#131C35",
-                    border: "1px solid #1E2D50",
-                    color: "#F0F4FF",
+                    background: "var(--color-surface)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text)",
                     textDecoration: "none",
                     padding: "16px 20px",
                     borderRadius: 12,
@@ -205,13 +205,13 @@ export function Contact() {
                     transition: "border-color 0.2s",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#4F6EF7";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
                   }}
                 >
-                  <span style={{ color: "#4F6EF7" }}>{l.icon}</span>
+                  <span style={{ color: "var(--color-accent)" }}>{l.icon}</span>
                   {l.label}
                 </motion.a>
               ))}
@@ -224,7 +224,7 @@ export function Contact() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 10,
-                background: "#4F6EF7",
+                background: "var(--color-accent)",
                 color: "#fff",
                 padding: "14px 28px",
                 borderRadius: 10,
@@ -235,11 +235,11 @@ export function Contact() {
                 transition: "background 0.2s, transform 0.15s",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "#3A55D4";
+                (e.currentTarget as HTMLElement).style.background = "var(--color-accent-hover)";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "#4F6EF7";
+                (e.currentTarget as HTMLElement).style.background = "var(--color-accent)";
                 (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
@@ -259,7 +259,7 @@ export function Contact() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: 20,
                 fontWeight: 600,
-                color: "#F0F4FF",
+                color: "var(--color-text)",
                 marginBottom: 24,
               }}
             >
@@ -274,7 +274,7 @@ export function Contact() {
                       display: "block",
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: 11,
-                      color: "#8892B0",
+                      color: "var(--color-text-muted)",
                       letterSpacing: "0.08em",
                       marginBottom: 6,
                     }}
@@ -289,10 +289,10 @@ export function Contact() {
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     style={inputStyle}
                     onFocus={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "#4F6EF7";
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                     }}
                     onBlur={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
                     }}
                   />
                 </div>
@@ -302,7 +302,7 @@ export function Contact() {
                       display: "block",
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: 11,
-                      color: "#8892B0",
+                      color: "var(--color-text-muted)",
                       letterSpacing: "0.08em",
                       marginBottom: 6,
                     }}
@@ -317,10 +317,10 @@ export function Contact() {
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     style={inputStyle}
                     onFocus={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "#4F6EF7";
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                     }}
                     onBlur={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
                     }}
                   />
                 </div>
@@ -332,7 +332,7 @@ export function Contact() {
                     display: "block",
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 11,
-                    color: "#8892B0",
+                    color: "var(--color-text-muted)",
                     letterSpacing: "0.08em",
                     marginBottom: 6,
                   }}
@@ -351,10 +351,10 @@ export function Contact() {
                     minHeight: 120,
                   }}
                   onFocus={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#4F6EF7";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                   }}
                   onBlur={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "#1E2D50";
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
                   }}
                 />
               </div>
@@ -365,7 +365,7 @@ export function Contact() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 style={{
-                  background: sent ? "#064e3b" : "#4F6EF7",
+                  background: sent ? "#064e3b" : "var(--color-accent)",
                   color: "#fff",
                   padding: "14px 28px",
                   borderRadius: 10,

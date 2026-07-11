@@ -50,3 +50,7 @@ coverage/
 
 # Tailwind / Build artifacts
 *.tsbuildinfo
+
+# Vault (local hook/session logs only — learnings.md is committed)
+vault/dispatch-log.md
+vault/sessions/

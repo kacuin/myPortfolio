@@ -6,7 +6,14 @@
 
 export const config = { runtime: "edge" };
 
-const DEFAULT_MODEL = "qwen/qwen3.6-flash";
+// KAI runs exclusively on free OpenRouter models — non-":free" ids are rejected.
+const DEFAULT_MODEL = "qwen/qwen3-next-80b-a3b-instruct:free";
+// Free models share upstream capacity and 429 individually; OpenRouter tries
+// these in order when the primary is saturated.
+const FALLBACK_MODELS = [
+  "qwen/qwen3-coder:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
+];
 const QWEN_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 const MAX_MESSAGES = 20;
@@ -98,6 +105,10 @@ export default async function handler(req: Request): Promise<Response> {
     return json(400, { error: "Last message must be from the user" });
   }
 
+  const model = process.env.OPENROUTER_MODEL?.endsWith(":free")
+    ? process.env.OPENROUTER_MODEL
+    : DEFAULT_MODEL;
+
   const upstream = await fetch(QWEN_URL, {
     method: "POST",
     headers: {
@@ -108,7 +119,8 @@ export default async function handler(req: Request): Promise<Response> {
       "X-Title": "KAI - KC Acuin portfolio",
     },
     body: JSON.stringify({
-      model: process.env.OPENROUTER_MODEL || DEFAULT_MODEL,
+      model,
+      models: [model, ...FALLBACK_MODELS.filter((m) => m !== model)],
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       max_tokens: 600,
       temperature: 0.7,
@@ -119,6 +131,10 @@ export default async function handler(req: Request): Promise<Response> {
     }),
   });
 
+  if (upstream.status === 429) {
+    // Free-tier models share upstream capacity — it recovers within a minute.
+    return json(429, { error: "KAI needs a breather — try again in a minute." });
+  }
   if (!upstream.ok || !upstream.body) {
     return json(502, { error: "KAI's brain is unreachable right now." });
   }

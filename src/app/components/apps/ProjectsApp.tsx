@@ -1,9 +1,28 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, Smartphone, Globe, Wallet, MessageSquare, PawPrint, Gem } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useMotionTemplate,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  Smartphone,
+  Globe,
+  Wallet,
+  MessageSquare,
+  PawPrint,
+  Gem,
+} from "lucide-react";
 import { SectionLabel, AppTitle, stagger, EASE } from "./shared";
+import { useIsMobile } from "../../../os/useIsMobile";
 
 type Project = {
+  slug: string;
   title: string;
   type: string;
   icon: React.ReactNode;
@@ -16,8 +35,21 @@ type Project = {
   highlights: string[];
 };
 
+// Screenshots live in src/assets/projects/<slug>/ — dropping files in is enough,
+// no code changes needed (see src/assets/projects/README.md).
+const screenModules = import.meta.glob<string>(
+  "../../../assets/projects/*/*.{png,jpg,jpeg,webp}",
+  { eager: true, import: "default" },
+);
+const screensBySlug: Record<string, string[]> = {};
+for (const [path, url] of Object.entries(screenModules).sort(([a], [b]) => a.localeCompare(b))) {
+  const slug = path.match(/projects\/([^/]+)\//)?.[1];
+  if (slug) (screensBySlug[slug] ??= []).push(url);
+}
+
 const projects: Project[] = [
   {
+    slug: "ireserb",
     title: "iReserb",
     type: "Mobile · Flutter",
     icon: <Smartphone size={20} />,
@@ -36,6 +68,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "quorfin",
     title: "Quorfin",
     type: "Mobile · Flutter",
     icon: <Wallet size={20} />,
@@ -55,6 +88,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "alfardan-living",
     title: "Al-Fardan Living",
     type: "Mobile · iOS",
     icon: <MessageSquare size={20} />,
@@ -72,6 +106,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "oyster-privilege",
     title: "Oyster Privilege",
     type: "Mobile · React Native",
     icon: <Gem size={20} />,
@@ -91,6 +126,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "pccmobile",
     title: "PCCMobile",
     type: "Mobile · Android",
     icon: <PawPrint size={20} />,
@@ -110,6 +146,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "goldone-lending",
     title: "Gold One Lending",
     type: "Web · Laravel",
     icon: <Globe size={20} />,
@@ -128,6 +165,7 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: "pup-procurement",
     title: "PUP Procurement Tracker",
     type: "Web · Laravel",
     icon: <Globe size={20} />,
@@ -147,7 +185,165 @@ const projects: Project[] = [
   },
 ];
 
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir > 0 ? 70 : -70, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir > 0 ? -70 : 70, opacity: 0 }),
+};
+
+function CarouselArrow({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={side === "left" ? "Previous screen" : "Next screen"}
+      style={{
+        width: 30,
+        height: 30,
+        borderRadius: "50%",
+        border: "1px solid var(--color-border)",
+        background: "var(--color-surface)",
+        color: "var(--color-text-muted)",
+        display: "grid",
+        placeItems: "center",
+        cursor: "pointer",
+        flexShrink: 0,
+      }}
+    >
+      {side === "left" ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+    </button>
+  );
+}
+
+function ScreensCarousel({ project, screens }: { project: Project; screens: string[] }) {
+  const [[index, dir], setPage] = useState<[number, number]>([0, 0]);
+  const isPhone = !project.type.startsWith("Web");
+  const many = screens.length > 1;
+  const paginate = (d: number) =>
+    setPage(([i]) => [(i + d + screens.length) % screens.length, d]);
+
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <div
+        style={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: 11.5,
+          color: "var(--color-accent)",
+          letterSpacing: "0.15em",
+          marginBottom: 14,
+        }}
+      >
+        SCREENS
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        {many && <CarouselArrow side="left" onClick={() => paginate(-1)} />}
+
+        <div
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            background: "#0b0b0f",
+            display: "flex",
+            flexDirection: "column",
+            ...(isPhone
+              ? {
+                  width: "min(240px, 58vw)",
+                  aspectRatio: "9 / 19",
+                  borderRadius: 34,
+                  border: "9px solid #15151a",
+                  boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
+                }
+              : {
+                  width: "min(560px, 100%)",
+                  aspectRatio: "16 / 10",
+                  borderRadius: 12,
+                  border: "1px solid var(--color-border)",
+                  boxShadow: "0 18px 50px rgba(0,0,0,0.25)",
+                }),
+          }}
+        >
+          {!isPhone && (
+            <div
+              style={{
+                height: 26,
+                flexShrink: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 5,
+                padding: "0 10px",
+                background: "var(--color-surface)",
+                borderBottom: "1px solid var(--color-border)",
+              }}
+            >
+              {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
+                <span key={c} style={{ width: 8, height: 8, borderRadius: "50%", background: c }} />
+              ))}
+            </div>
+          )}
+
+          <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
+            <AnimatePresence initial={false} custom={dir}>
+              <motion.img
+                key={index}
+                src={screens[index]}
+                alt={`${project.title} screen ${index + 1} of ${screens.length}`}
+                custom={dir}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.35, ease: EASE }}
+                drag={many ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.5}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -50) paginate(1);
+                  else if (info.offset.x > 50) paginate(-1);
+                }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
+                draggable={false}
+              />
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {many && <CarouselArrow side="right" onClick={() => paginate(1)} />}
+      </div>
+
+      {many && (
+        <div style={{ display: "flex", gap: 6, marginTop: 12, marginLeft: 44 }}>
+          {screens.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage([i, i > index ? 1 : -1])}
+              aria-label={`Go to screen ${i + 1}`}
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                background: i === index ? "var(--color-accent)" : "var(--color-border)",
+                transition: "background 0.2s",
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
+  const screens = screensBySlug[project.slug] ?? [];
   return (
     <motion.div
       key="detail"
@@ -218,6 +414,8 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         {project.description}
       </p>
 
+      {screens.length > 0 && <ScreensCarousel project={project} screens={screens} />}
+
       <div
         style={{
           fontFamily: "'JetBrains Mono', monospace",
@@ -271,8 +469,206 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
   );
 }
 
+const TILT = 7; // degrees at the card edges
+const cardSpring = { stiffness: 260, damping: 20, mass: 0.6 };
+
+function ParallaxCard({
+  project,
+  screens,
+  index,
+  onClick,
+  tiltEnabled,
+}: {
+  project: Project;
+  screens: string[];
+  index: number;
+  onClick: () => void;
+  tiltEnabled: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  // Normalized cursor position within the card (0..1), center at rest.
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const rotateX = useSpring(useTransform(my, [0, 1], [TILT, -TILT]), cardSpring);
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-TILT, TILT]), cardSpring);
+  // Screenshot drifts opposite the cursor, harder than the tilt — the depth cue.
+  const imgX = useSpring(useTransform(mx, [0, 1], [14, -14]), cardSpring);
+  const imgY = useSpring(useTransform(my, [0, 1], [14, -14]), cardSpring);
+  const glareX = useTransform(mx, (v) => v * 100);
+  const glareY = useTransform(my, (v) => v * 100);
+  const glare = useMotionTemplate`radial-gradient(240px circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.16), transparent 65%)`;
+
+  const cover = screens[0];
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!tiltEnabled) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width);
+    my.set((e.clientY - r.top) / r.height);
+  };
+  const handleLeave = () => {
+    mx.set(0.5);
+    my.set(0.5);
+    setHovered(false);
+  };
+
+  return (
+    <div style={{ perspective: 900 }}>
+      <motion.div
+        {...stagger(3 + index)}
+        onClick={onClick}
+        onMouseMove={handleMove}
+        onMouseEnter={() => tiltEnabled && setHovered(true)}
+        onMouseLeave={handleLeave}
+        style={{
+          ...(tiltEnabled ? { rotateX, rotateY } : {}),
+          transformStyle: "preserve-3d",
+          position: "relative",
+          height: "100%",
+          background: "var(--color-surface)",
+          border: `1px solid ${hovered ? "var(--color-border-hover)" : "var(--color-border)"}`,
+          borderRadius: 14,
+          padding: 20,
+          cursor: "pointer",
+          transition: "border-color 0.2s, box-shadow 0.3s",
+          boxShadow: hovered ? "0 18px 40px rgba(0,0,0,0.25)" : "0 0 0 rgba(0,0,0,0)",
+        }}
+      >
+        {cover && (
+          <motion.div
+            aria-hidden
+            initial={false}
+            animate={{ opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: 13,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <motion.img
+              src={cover}
+              alt=""
+              draggable={false}
+              style={{
+                x: imgX,
+                y: imgY,
+                scale: 1.15,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
+            />
+            {/* Scrim keeps card text readable over the screenshot in both themes. */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to bottom, color-mix(in srgb, var(--color-surface) 35%, transparent), var(--color-surface) 82%)",
+              }}
+            />
+          </motion.div>
+        )}
+
+        <motion.div
+          aria-hidden
+          initial={false}
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: 13,
+            background: glare,
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+
+        <div
+          style={{
+            position: "relative",
+            zIndex: 3,
+            transform: "translateZ(30px)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 10,
+                background: "var(--color-accent-dim)",
+                border: "1px solid rgba(79,110,247,0.2)",
+                display: "grid",
+                placeItems: "center",
+                color: "var(--color-accent)",
+              }}
+            >
+              {project.icon}
+            </div>
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 10.5,
+                color: project.statusColor,
+                border: `1px solid ${project.statusColor}`,
+                padding: "2px 9px",
+                borderRadius: 100,
+                opacity: 0.9,
+              }}
+            >
+              {project.status}
+            </span>
+          </div>
+          <div
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 16.5,
+              fontWeight: 600,
+              color: "var(--color-text)",
+            }}
+          >
+            {project.title}
+          </div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 11,
+              color: "var(--color-text-muted)",
+            }}
+          >
+            {project.type} · {project.year}
+          </div>
+          <p
+            style={{
+              fontSize: 13,
+              color: "var(--color-text-muted)",
+              lineHeight: 1.6,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {project.description}
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export function ProjectsApp() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const isMobile = useIsMobile();
 
   return (
     <AnimatePresence mode="wait">
@@ -304,91 +700,14 @@ export function ProjectsApp() {
             }}
           >
             {projects.map((p, i) => (
-              <motion.div
+              <ParallaxCard
                 key={p.title}
-                {...stagger(3 + i)}
-                whileHover={{ y: -4 }}
+                project={p}
+                screens={screensBySlug[p.slug] ?? []}
+                index={i}
                 onClick={() => setSelected(p)}
-                style={{
-                  background: "var(--color-surface)",
-                  border: "1px solid var(--color-border)",
-                  borderRadius: 14,
-                  padding: 20,
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                  transition: "border-color 0.2s",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-border-hover)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)")
-                }
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div
-                    style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 10,
-                      background: "var(--color-accent-dim)",
-                      border: "1px solid rgba(79,110,247,0.2)",
-                      display: "grid",
-                      placeItems: "center",
-                      color: "var(--color-accent)",
-                    }}
-                  >
-                    {p.icon}
-                  </div>
-                  <span
-                    style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: 10.5,
-                      color: p.statusColor,
-                      border: `1px solid ${p.statusColor}`,
-                      padding: "2px 9px",
-                      borderRadius: 100,
-                      opacity: 0.9,
-                    }}
-                  >
-                    {p.status}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: 16.5,
-                    fontWeight: 600,
-                    color: "var(--color-text)",
-                  }}
-                >
-                  {p.title}
-                </div>
-                <div
-                  style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: 11,
-                    color: "var(--color-text-muted)",
-                  }}
-                >
-                  {p.type} · {p.year}
-                </div>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "var(--color-text-muted)",
-                    lineHeight: 1.6,
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {p.description}
-                </p>
-              </motion.div>
+                tiltEnabled={!isMobile}
+              />
             ))}
           </div>
         </motion.div>

@@ -33,3 +33,11 @@
 
 - **Ship flow for this repo:** feature done → ask KC "commit & push to main?" → on yes, conventional commit(s) direct to main → `git push origin main`. GitHub Actions (`.github/workflows/ci.yml`) runs `npm ci && npm run build` as the gate; **deployment is Vercel Git integration** (push to main auto-deploys production) — deliberately NOT in the Actions workflow, so no Vercel tokens live in GitHub.
 - Never push without asking; never commit `.env` (`OPENROUTER_API_KEY` lives only in local `.env` + Vercel env vars). `vault/dispatch-log.md` is gitignored noise; this file is committed.
+
+## [2026-07-13] Phase 5: free-only KAI + Projects parallax previews
+
+- **KAI is free-only now:** `api/chat.ts` defaults to `qwen/qwen3-next-80b-a3b-instruct:free` and the `OPENROUTER_MODEL` override is honored only if it ends in `":free"`. OpenRouter `models: [...]` array gives automatic fallback routing — free models 429 individually ("temporarily rate-limited upstream", provider Venice) even when the account's daily quota is untouched, so a fallback chain (`qwen3-coder:free`, `llama-3.3-70b-instruct:free`) + mapping upstream 429 → friendly 429 matters more than the model choice. Verified the guard with the esbuild-transpile + mocked-fetch unit trick (capture the request body, assert `model`/`models`).
+- **Projects previews:** screenshots auto-discovered via `import.meta.glob("../../../assets/projects/*/*.{png,jpg,jpeg,webp}", { eager: true, import: "default" })` keyed by folder slug — adding files needs zero code changes.
+- **3D tilt card + overflow:** `overflow: hidden` forces `transform-style` to flat, killing children's `translateZ`. Keep the tilting card overflow-visible with `preserve-3d`, and clip the screenshot inside an inner absolute wrapper (`inset: 0`, borderRadius, overflow hidden) instead.
+- **Theme-proof scrim over screenshots:** `linear-gradient(to bottom, color-mix(in srgb, var(--color-surface) 35%, transparent), var(--color-surface) 82%)` keeps card text readable over any screenshot in both themes.
+- **Playwright can open OS windows via the app's own CustomEvent** (`window.dispatchEvent(new CustomEvent("kc:spotlight"))` + type + Enter) — no dock selectors needed. Playwright also doubles as a placeholder-screenshot generator (`page.setContent` + `page.screenshot` at 390×844).

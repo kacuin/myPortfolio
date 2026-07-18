@@ -21,7 +21,7 @@ export const PROFILE = {
   location: "Caloocan, Philippines",
 
   metaDescription:
-    "Mobile developer shipping production Flutter, iOS, and Android apps — iReserb, Al-Fardan Living, PCCMobile. AI-driven workflows cut debug time 70%.",
+    "Mobile developer shipping production Flutter, iOS, and Android apps to the App Store and Google Play. AI-driven workflows cut debug time 70% and release cycles from weeks to days.",
 
   /** Typewriter rotation in DesktopHero — AI leads, credentials support. */
   heroPhrases: [
@@ -53,35 +53,42 @@ export const PROFILE = {
     "AI-driven development",
   ],
 
-  /** Condensed from the ProjectsApp array — same facts, no new claims. */
+  /**
+   * Condensed from the ProjectsApp array — same facts, no new claims.
+   * Client work is anonymized: engagements are under NDA, so no client names,
+   * product names, or identifying details belong here. This object is published
+   * as crawlable HTML, so anything added here is public and indexable.
+   */
   projects: [
     {
-      name: "iReserb",
+      name: "Service Booking Platform",
       role: "Mobile Lead · 2026",
       blurb:
         "All-in-one service booking platform in Flutter. Real-time sync with Firebase, Google Maps for service discovery, clean architecture with Riverpod. Led the mobile architecture from scratch.",
     },
     {
-      name: "Al-Fardan Living",
+      name: "Resident Services App",
       role: "iOS Developer · 2025–2026",
       blurb:
-        "Resident-services iOS app for a Qatar-based property group. Owned the native Swift/UIKit codebase, rebuilding the customer-service chat attachment and image pipeline.",
+        "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline.",
     },
     {
-      name: "PCCMobile",
+      name: "Livestock Field App",
       role: "Mobile Engineer · 2026",
       blurb:
-        "Livestock herd-management field app for the Philippine Carabao Center. Buffalo Herd Recording System across 18 API services, QR-based animal lookup, MVVM with Hilt.",
+        "Offline-capable herd-management field app for an agricultural agency. Animal, herd, and farmer registries across 18 backend services, QR-based lookup, MVVM with Hilt.",
     },
     {
-      name: "Oyster Privilege",
+      name: "Membership Privileges App",
       role: "Mobile Engineer · 2025–Present",
-      blurb: "Live membership and privileges mobile app.",
+      blurb:
+        "React Native membership app shipped to both app stores via Expo EAS — digital membership card with QR verification and a privileges catalog.",
     },
     {
-      name: "Gold One Lending",
-      role: "Full Stack Developer · 2023–2024",
-      blurb: "Shipped lending platform covering loan origination and servicing.",
+      name: "Quorfin",
+      role: "Solo Builder · 2026",
+      blurb:
+        "Personal offline-first finance app in Flutter. Field-level AES encryption at rest, biometric app lock, encrypted backups, and PDF/CSV export — no account required.",
     },
   ],
 

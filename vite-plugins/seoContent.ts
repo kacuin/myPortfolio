@@ -39,6 +39,8 @@ function headTags(): string {
   }
 
   return `
+    <title>${esc(fullTitle)}</title>
+    <meta name="description" content="${esc(metaDescription)}" />
     <link rel="canonical" href="${SITE_URL}/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${SITE_URL}/" />

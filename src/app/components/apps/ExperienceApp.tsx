@@ -23,7 +23,7 @@ const jobs: Job[] = [
     date: "Feb 2026 – Present",
     active: true,
     bullets: [
-      <>Mobile lead for {strong("iReserb")} — an all-in-one service booking platform in Flutter, integrating Firebase, Google Maps API, and third-party SDKs.</>,
+      <>Mobile lead for an {strong("all-in-one service booking platform")} in Flutter, integrating Firebase, Google Maps API, and third-party SDKs.</>,
       "Driving technical roadmap and architecture decisions for the full mobile portfolio; leading a 2-person dev team through active sprint cycles.",
       <>Implementing AI-driven development workflows with {strong("GitHub Copilot (MCP & AI Agents)")} for accelerated feature delivery.</>,
       "Mentoring engineers on clean architecture, code review standards, and Agile best practices.",
@@ -38,7 +38,7 @@ const jobs: Job[] = [
       <>Sole maintainer of the company's entire mobile portfolio — {strong("iOS (Swift/Obj-C), Android (Kotlin/Java), React Native")}.</>,
       <>Reduced app crash rate by {strong("68%")} via automated testing and disciplined tech debt management.</>,
       <>Cut release cycle from {strong("3 weeks to under 4 days")} with CI/CD pipelines and automated workflows.</>,
-      <>Migrated Gold One Lending web app from microservices to a {strong("clean monolith")} and designed the future system architecture roadmap.</>,
+      <>Migrated a lending management web app from microservices to a {strong("clean monolith")} and designed the future system architecture roadmap.</>,
       <>Achieved {strong("2–3× feature delivery acceleration")} using AI-assisted tools (Claude, Grok, Cursor).</>,
     ],
     sub: {
@@ -75,7 +75,7 @@ const jobs: Job[] = [
     date: "May 2023 – Jan 2024",
     active: false,
     bullets: [
-      <>Built UI/UX designs, prototypes, and front-end implementation for a {strong("Lending Management System")} (Gold One Lending Corp.) in Figma.</>,
+      <>Built UI/UX designs, prototypes, and front-end implementation for a {strong("Lending Management System")} in Figma.</>,
       "Completed internship gaining hands-on experience with production codebases.",
     ],
   },

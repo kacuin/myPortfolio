@@ -8,7 +8,7 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const SUGGESTIONS = [
   "What does KC build?",
-  "Tell me about PCCMobile",
+  "What's his mobile stack?",
   "How does KC use AI at work?",
   "How do I contact KC?",
 ];
@@ -19,14 +19,12 @@ function offlineReply(q: string): string {
   let a: string;
   if (t.includes("contact") || t.includes("email") || t.includes("hire"))
     a = "You can reach KC at wkcacuin@gmail.com, or find him on GitHub (kcacuin) and LinkedIn (in/kcacuin). The Contact app in the dock has everything, including his CV.";
-  else if (t.includes("pccmobile") || t.includes("carabao"))
-    a = "PCCMobile is a native Kotlin Android app KC is building for the Philippine Carabao Center — it digitizes animal, herd, and farmer registries with a Buffalo Herd Recording System, QR animal scanning, and role-based access for farmers and technicians.";
-  else if (t.includes("oyster") || t.includes("fardan"))
-    a = "Oyster Privilege is a React Native/Expo membership app KC ships for Al Fardan's privilege club — digital QR membership card, privileges catalog, and hotel/vendor directory. It's live on both stores at v1.2.11.";
+  else if (t.includes("stack") || t.includes("mobile") || t.includes("flutter"))
+    a = "KC works across Flutter/Dart, React Native (Expo), native iOS (Swift/UIKit), native Android (Kotlin), and Laravel on the backend — with Firebase, CI/CD via GitHub Actions and EAS, and clean architecture throughout.";
   else if (t.includes("ai") || t.includes("workflow"))
     a = "KC pairs with AI agents end-to-end — planning, coding, and verification. It cut his debugging time by ~70% and brought team releases from a week down to about 4 days.";
   else if (t.includes("build") || t.includes("project") || t.includes("work"))
-    a = "KC ships production mobile and web apps: Flutter (iReserb, Quorfin), React Native (Oyster Privilege), native iOS and Android (Al-Fardan Living, PCCMobile), and Laravel systems (Gold One Lending, PUP Procurement Tracker). Open the Projects app for the case files.";
+    a = "KC ships production mobile and web apps — Flutter and React Native apps live on the App Store and Google Play, native iOS and Android work, and Laravel systems. Client engagements are under NDA, so the Projects app describes them without naming clients.";
   else
     a = "I'm KAI, KC's AI. I can tell you about his projects, stack, experience at Odecci Solutions, or how to reach him — try asking about any of those, or open the Projects app from the dock.";
   return `(offline mode) ${a}`;

@@ -19,12 +19,15 @@ src/assets/projects/<slug>/02.png
 
 ## Slugs
 
-| Project                 | Folder             |
-| ----------------------- | ------------------ |
-| iReserb                 | `ireserb`          |
-| Quorfin                 | `quorfin`          |
-| Al-Fardan Living        | `alfardan-living`  |
-| Oyster Privilege        | `oyster-privilege` |
-| PCCMobile               | `pccmobile`        |
-| Gold One Lending        | `goldone-lending`  |
-| PUP Procurement Tracker | `pup-procurement`  |
+Client engagements are under NDA — slugs and titles are deliberately generic.
+Do not rename these back to client or product names.
+
+| Project                   | Folder                    |
+| ------------------------- | ------------------------- |
+| Service Booking Platform  | `service-booking`         |
+| Quorfin (personal)        | `quorfin`                 |
+| Resident Services App     | `resident-services`       |
+| Membership Privileges App | `membership-privileges`   |
+| Livestock Field App       | `herd-management`         |
+| Lending Management System | `lending-platform`        |
+| Procurement Tracker       | `procurement-tracker`     |

@@ -37,14 +37,15 @@ function fuzzyScore(query: string, target: string): number {
   return score;
 }
 
+// Client work is under NDA — these mirror the anonymized titles in ProjectsApp.
 const PROJECT_NAMES = [
-  "iReserb",
+  "Service Booking Platform",
   "Quorfin",
-  "Oyster Privilege",
-  "PCCMobile",
-  "Al-Fardan Living",
-  "Gold One Lending",
-  "PUP Procurement Tracker",
+  "Membership Privileges App",
+  "Livestock Field App",
+  "Resident Services App",
+  "Lending Management System",
+  "Procurement Tracker",
 ];
 
 const SKILL_NAMES = [

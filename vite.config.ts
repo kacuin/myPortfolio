@@ -2,6 +2,7 @@ import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from 'vite'
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { seoContent } from './vite-plugins/seoContent'
 
 // Dev-only bridge: serves /api/chat (the Vercel edge function) inside `npm run dev`
 // so KAI works locally without `vercel dev`. Production routing is Vercel's.
@@ -65,6 +66,7 @@ export default defineConfig({
   plugins: [
     devApiBridge(),
     figmaAssetResolver(),
+    seoContent(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),

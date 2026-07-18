@@ -4,19 +4,16 @@ import { ArrowDown } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import meDayImage from "../../assets/me_day.jpeg";
 import meNightImage from "../../assets/me_night.png";
+import { PROFILE } from "../../content/profile";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const phrases = [
-  "Full Stack Developer.",
-  "Mobile Engineer.",
-  "Team Lead & Architect.",
-  "AI-Driven Builder.",
-];
+// Shared with the crawlable fallback so indexed copy matches what's on screen.
+const phrases = PROFILE.heroPhrases as readonly string[];
 
 const longestPhrase = phrases.reduce((a, b) => (b.length > a.length ? b : a));
 
-function useTypewriter(items: string[]) {
+function useTypewriter(items: readonly string[]) {
   const [text, setText] = useState("");
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [deleting, setDeleting] = useState(false);
@@ -170,12 +167,14 @@ export function DesktopHero() {
               maxWidth: 520,
             }}
           >
-            Full stack &amp; mobile developer from the Philippines — Team Lead at{" "}
+            Mobile developer from the Philippines — Team Lead at{" "}
             <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>
               Odecci Solutions Inc.
             </strong>{" "}
             I ship production apps across Flutter, React Native, iOS, Android, and Laravel,
-            and make teams faster with AI-driven workflows.
+            and pair heavily with AI — cutting debug time{" "}
+            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>70%</strong> and
+            release cycles from weeks to days.
           </motion.p>
 
           <motion.div

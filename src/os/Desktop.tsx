@@ -10,6 +10,11 @@ import { DesktopHero } from "../app/components/DesktopHero";
 import { Wallpaper } from "./Wallpaper";
 import { ContextMenu, type MenuPos } from "./ContextMenu";
 import { Spotlight } from "./Spotlight";
+import { StickyNote } from "./StickyNote";
+import { Screensaver } from "./Screensaver";
+import { useKonami } from "./useKonami";
+import { celebrateBig } from "./confetti";
+import { playSound } from "./sounds";
 
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
@@ -44,6 +49,20 @@ export function Desktop() {
   const { windows } = useWindowManager();
   const isMobile = useIsMobile();
   const [menuPos, setMenuPos] = useState<MenuPos>(null);
+  const [partying, setPartying] = useState(false);
+
+  // Held in a ref so re-triggering inside the window restarts the party rather
+  // than letting the first timer cut the second one short.
+  // Explicit undefined rather than a zero-arg useRef<T>(): the bare form is
+  // fine on the installed @types/react 18, but is an error under React 19's.
+  const partyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useKonami(() => {
+    celebrateBig();
+    playSound("open");
+    setPartying(true);
+    clearTimeout(partyTimer.current);
+    partyTimer.current = setTimeout(() => setPartying(false), 6000);
+  });
 
   let visibleApps = ALL_APPS.filter((app) => windows[app.id]?.open);
   if (isMobile) {
@@ -69,12 +88,23 @@ export function Desktop() {
         background:
           "radial-gradient(120% 90% at 75% 8%, var(--color-accent-dim) 0%, transparent 55%), radial-gradient(90% 70% at 10% 95%, var(--color-teal-dim) 0%, transparent 60%), var(--color-bg)",
         transition: "background 0.3s",
+        // Konami payoff: re-point the wallpaper blob tokens for a few seconds.
+        // Scoped here so it colors the wallpaper without tinting any text.
+        ...(partying
+          ? ({
+              "--wall-blob-1": "rgba(255, 74, 138, 0.40)",
+              "--wall-blob-2": "rgba(124, 92, 252, 0.36)",
+              "--wall-blob-3": "rgba(100, 255, 218, 0.26)",
+              "--wall-blob-4": "rgba(245, 166, 35, 0.24)",
+            } as React.CSSProperties)
+          : null),
       }}
     >
       {/* Wallpaper layers */}
       <Wallpaper />
       <CursorGlow />
       <DesktopHero />
+      <StickyNote />
 
       {/* Windows layer */}
       <AnimatePresence>
@@ -87,6 +117,7 @@ export function Desktop() {
       <Dock />
       <ContextMenu pos={menuPos} onClose={() => setMenuPos(null)} />
       <Spotlight />
+      <Screensaver />
     </div>
   );
 }

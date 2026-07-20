@@ -6,7 +6,7 @@ import meDayImage from "../../assets/me_day.jpeg";
 import meNightImage from "../../assets/me_night.png";
 import { PROFILE } from "../../content/profile";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "../../os/motion";
 
 // Shared with the crawlable fallback so indexed copy matches what's on screen.
 const phrases = PROFILE.heroPhrases as readonly string[];
@@ -55,14 +55,16 @@ export function DesktopHero() {
   const { theme } = useTheme();
 
   return (
+    // Alignment and padding live in .hero-shell (theme.css), not inline: the
+    // `safe center` fallback needs two stacked align-items declarations, which
+    // a style object cannot express.
     <div
+      className="hero-shell"
       style={{
         position: "absolute",
         inset: 0,
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
-        padding: "var(--menubar-h) 24px 110px",
         pointerEvents: "none",
         zIndex: 1,
       }}
@@ -79,35 +81,21 @@ export function DesktopHero() {
         }}
       >
         <div style={{ maxWidth: 560 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6, ease: EASE }}
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 13,
-              color: "var(--color-teal)",
-              letterSpacing: "0.12em",
-              marginBottom: 18,
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-            }}
-          >
-            <span style={{ display: "block", width: 40, height: 1, background: "var(--color-teal)" }} />
-            Hi, my name is
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.7, ease: EASE }}
+            transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--font-display)",
               fontSize: "clamp(44px, 7vw, 88px)",
-              fontWeight: 700,
+              fontWeight: 600,
               lineHeight: 0.95,
-              letterSpacing: "-0.03em",
+              // Serifs need more room than the sans this replaced (-0.03em).
+              letterSpacing: "-0.02em",
+              // SOFT rounds the terminals, WONK swaps in the flared alternates —
+              // the two axes that make Fraunces read as a person, not a default.
+              fontVariationSettings: "'SOFT' 40, 'WONK' 1",
+              textWrap: "balance",
               color: "var(--color-text)",
               marginBottom: 12,
             }}
@@ -118,11 +106,14 @@ export function DesktopHero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6, ease: EASE }}
+            transition={{ delay: 0.3, duration: 0.6, ease: EASE }}
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              // Stays sans on purpose: this line ends in a blinking block
+              // cursor, and a serif fights that terminal motif. The contrast
+              // also makes the serif name above land harder.
+              fontFamily: "var(--font-ui)",
               fontSize: "clamp(19px, 2.6vw, 28px)",
-              fontWeight: 300,
+              fontWeight: 400,
               color: "var(--color-text-muted)",
               marginBottom: 22,
               position: "relative",
@@ -158,7 +149,7 @@ export function DesktopHero() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
+            transition={{ delay: 0.4, duration: 0.6, ease: EASE }}
             style={{
               color: "var(--color-text-muted)",
               fontSize: 15.5,
@@ -180,12 +171,13 @@ export function DesktopHero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
+            transition={{ delay: 1.0, duration: 0.8 }}
+            className="hero-hint"
             style={{
               display: "flex",
               alignItems: "center",
               gap: 10,
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: 12,
               color: "var(--color-text-subtle)",
               letterSpacing: "0.08em",

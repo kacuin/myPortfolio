@@ -1,22 +1,18 @@
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { stagger } from "../../../os/motion";
 
-export const EASE = [0.16, 1, 0.3, 1] as const;
-
-export function stagger(i: number) {
-  return {
-    initial: { opacity: 0, y: 14 },
-    animate: { opacity: 1, y: 0 },
-    transition: { delay: 0.06 + i * 0.07, duration: 0.45, ease: EASE },
-  };
-}
+// Re-exported so the app components can keep importing their motion vocabulary
+// from the same place they import SectionLabel/AppTitle. Definitions live in
+// os/motion.ts.
+export { EASE, stagger } from "../../../os/motion";
 
 export function SectionLabel({ children, index }: { children: ReactNode; index?: number }) {
   return (
     <motion.div
       {...stagger(index ?? 0)}
       style={{
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: 11.5,
         color: "var(--color-accent)",
         letterSpacing: "0.15em",
@@ -46,10 +42,12 @@ export function AppTitle({ children, index }: { children: ReactNode; index?: num
     <motion.h2
       {...stagger(index ?? 1)}
       style={{
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontSize: "clamp(24px, 3vw, 32px)",
-        fontWeight: 700,
-        letterSpacing: "-0.02em",
+        fontFamily: "var(--font-display)",
+        fontSize: "clamp(25px, 3vw, 34px)",
+        fontWeight: 600,
+        letterSpacing: "-0.015em",
+        lineHeight: 1.15,
+        textWrap: "balance",
         color: "var(--color-text)",
         marginBottom: 14,
       }}

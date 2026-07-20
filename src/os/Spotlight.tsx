@@ -1,17 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, AppWindow, Rocket, Layers, Zap } from "lucide-react";
+import { Search, AppWindow, Rocket, Layers, Zap, Sparkles } from "lucide-react";
+import { celebrate, celebrateBig } from "./confetti";
 import { APPS, type AppId } from "./apps";
 import { useWindowManager } from "./WindowManagerContext";
 import { useTheme } from "../context/ThemeContext";
 import cvFile from "../assets/KC_Acuin_CV.pdf";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 type Entry = {
   title: string;
   subtitle: string;
-  kind: "app" | "project" | "skill" | "action";
+  kind: "app" | "project" | "skill" | "action" | "egg";
   keywords: string;
   run: () => void;
 };
@@ -64,6 +65,7 @@ const kindIcon = {
   project: Rocket,
   skill: Layers,
   action: Zap,
+  egg: Sparkles,
 } as const;
 
 export function Spotlight() {
@@ -124,11 +126,35 @@ export function Spotlight() {
         keywords: "minimize all windows",
         run: minimizeAll,
       },
+
+      // Eggs. Filtered out of the default list below, so they only surface for
+      // someone who actually types the thing.
+      {
+        title: "confetti",
+        subtitle: "Why not",
+        kind: "egg" as const,
+        keywords: "party celebrate fun",
+        run: () => celebrate({ x: 0.5, y: 0.6 }),
+      },
+      {
+        title: "whoami",
+        subtitle: "kc — mobile dev, team lead, Philippines",
+        kind: "egg" as const,
+        keywords: "who am i identity about",
+        run: openIt("about"),
+      },
+      {
+        title: "sudo make me a sandwich",
+        subtitle: "Okay.",
+        kind: "egg" as const,
+        keywords: "xkcd sudo sandwich",
+        run: celebrateBig,
+      },
     ];
   }, [openApp, minimizeAll, toggle]);
 
   const results = useMemo(() => {
-    if (!query.trim()) return entries.slice(0, 8);
+    if (!query.trim()) return entries.filter((e) => e.kind !== "egg").slice(0, 8);
     return entries
       .map((e) => ({
         e,
@@ -246,13 +272,13 @@ export function Spotlight() {
                   outline: "none",
                   background: "transparent",
                   color: "var(--color-text)",
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "var(--font-ui)",
                   fontSize: 17,
                 }}
               />
               <kbd
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
+                  fontFamily: "var(--font-mono)",
                   fontSize: 10.5,
                   color: "var(--color-text-subtle)",
                   border: "1px solid var(--color-border)",
@@ -301,7 +327,7 @@ export function Spotlight() {
                       <div style={{ minWidth: 0 }}>
                         <div
                           style={{
-                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontFamily: "var(--font-ui)",
                             fontSize: 14,
                             fontWeight: 600,
                             color: active ? "#fff" : "var(--color-text)",

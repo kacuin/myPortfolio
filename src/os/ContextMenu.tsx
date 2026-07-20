@@ -7,7 +7,7 @@ import { useTheme } from "../context/ThemeContext";
 import { isMuted, setMuted } from "./sounds";
 import cvFile from "../assets/KC_Acuin_CV.pdf";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 export type MenuPos = { x: number; y: number } | null;
 
@@ -20,7 +20,7 @@ const itemStyle: React.CSSProperties = {
   border: "none",
   background: "transparent",
   color: "var(--color-text)",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "var(--font-ui)",
   fontSize: 13,
   padding: "5px 10px",
   borderRadius: 6,

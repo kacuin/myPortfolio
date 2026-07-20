@@ -8,7 +8,7 @@ import {
   type MotionValue,
 } from "motion/react";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 export const DOCK_ICON_BASE = 48;
 export const DOCK_ICON_MAX = 84;
@@ -36,7 +36,9 @@ export function DockIcon({
   registerRef?: (el: HTMLElement | null) => void;
   children: ReactNode;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  // `useRef<T | null>(null)` selects the mutable overload, so the ref callback
+  // below can assign to `.current` without casting through MutableRefObject.
+  const ref = useRef<HTMLElement | null>(null);
   const [hovered, setHovered] = useState(false);
   const bounce = useAnimationControls();
 
@@ -104,7 +106,7 @@ export function DockIcon({
                 border: "1px solid var(--glass-border)",
                 borderRadius: 8,
                 padding: "5px 12px",
-                fontFamily: "'Space Grotesk', sans-serif",
+                fontFamily: "var(--font-ui)",
                 fontSize: 12.5,
                 fontWeight: 500,
                 color: "var(--color-text)",
@@ -119,16 +121,21 @@ export function DockIcon({
           )}
         </AnimatePresence>
 
-        <motion.div
+        <motion.button
+          type="button"
+          aria-label={label}
           ref={(el) => {
-            (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
+            ref.current = el;
             registerRef?.(el);
           }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
+          onFocus={() => setHovered(true)}
+          onBlur={() => setHovered(false)}
           onClick={onClick}
           whileTap={{ scale: 0.88 }}
           style={{
+            padding: 0,
             width: "100%",
             height: isMobile ? base : width,
             borderRadius: "24%",
@@ -145,7 +152,7 @@ export function DockIcon({
           }}
         >
           {children}
-        </motion.div>
+        </motion.button>
       </motion.div>
 
       {/* running-app indicator dot */}

@@ -74,7 +74,7 @@ export function AboutApp() {
           <span
             key={t}
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: 11.5,
               color: "var(--color-teal)",
               background: "var(--color-teal-dim)",
@@ -111,7 +111,7 @@ export function AboutApp() {
           >
             <div
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 fontSize: 26,
                 fontWeight: 500,
                 color: m.color,
@@ -169,7 +169,9 @@ export function AboutApp() {
               <div style={{ fontSize: 11.5, color: "var(--color-text-muted)", marginBottom: 2 }}>{row.label}</div>
               <div
                 style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  // Data values, not headings — one of these is an email
+                  // address, which a display serif sets badly.
+                  fontFamily: "var(--font-ui)",
                   fontSize: 14,
                   fontWeight: 500,
                   color: "var(--color-text)",

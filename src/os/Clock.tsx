@@ -24,7 +24,7 @@ export function Clock({ compact = false }: { compact?: boolean }) {
   return (
     <span
       style={{
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: 11.5,
         color: "var(--color-text)",
         whiteSpace: "nowrap",

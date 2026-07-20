@@ -10,7 +10,7 @@ import type { AppDef } from "./apps";
 import { useWindowManager, type WinState } from "./WindowManagerContext";
 import { useIsMobile } from "./useIsMobile";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 function TrafficLights({
   onClose,
@@ -220,7 +220,7 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
             style={{
               flex: 1,
               textAlign: "center",
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--font-ui)",
               fontSize: 13,
               fontWeight: 600,
               color: "var(--color-text)",
@@ -316,8 +316,8 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
               textAlign: "center",
               fontFamily:
                 app.id === "memory"
-                  ? "'JetBrains Mono', monospace"
-                  : "'Space Grotesk', sans-serif",
+                  ? "var(--font-mono)"
+                  : "var(--font-ui)",
               fontSize: 13,
               fontWeight: 600,
               color: isFocused ? "var(--color-text)" : "var(--color-text-subtle)",

@@ -6,7 +6,7 @@ import { useWindowManager } from "./WindowManagerContext";
 import { useIsMobile } from "./useIsMobile";
 import cvFile from "../assets/KC_Acuin_CV.pdf";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 function Separator() {
   return (

@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+
+    // vite/client supplies the ambient modules for .png/.jpeg/.css imports and
+    // the import.meta.glob typings; node covers process/Buffer/__dirname in the
+    // build-side files and the Edge function. src/declarations.d.ts still has to
+    // declare *.pdf — vite/client does not cover that one.
+    //
+    // Known limitation: this list is program-wide, not per-zone. So `process`
+    // and `Buffer` typecheck inside browser code under src/ even though Vite
+    // does not shim them (a runtime ReferenceError this config would bless),
+    // and `document` typechecks inside the Edge function. Nothing does either
+    // today. The fix if it ever bites is project references splitting lib/types
+    // per zone; not worth the ceremony for a repo this size yet.
+    "types": ["vite/client", "node"],
+
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // main.tsx imports "./app/App.tsx" with the extension, which is only legal
+    // alongside noEmit. Type checking is all we want here anyway — Vite owns
+    // the actual build.
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src", "api", "vite-plugins", "vite.config.ts"]
+}

@@ -90,7 +90,7 @@ export function MemoryApp() {
         minHeight: "100%",
         background: "rgba(5, 8, 18, 0.88)",
         padding: "18px 20px 24px",
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "var(--font-mono)",
         fontSize: 12.5,
         lineHeight: 1.75,
       }}

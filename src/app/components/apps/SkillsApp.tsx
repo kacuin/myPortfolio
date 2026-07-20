@@ -117,23 +117,24 @@ export function SkillsApp() {
             >
               {s.icon}
             </div>
-            <div
+            <h3
               style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 15,
+                fontFamily: "var(--font-display)",
+                fontSize: 16.5,
                 fontWeight: 600,
+                letterSpacing: "-0.01em",
                 color: "var(--color-text)",
                 marginBottom: 10,
               }}
             >
               {s.title}
-            </div>
+            </h3>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {s.tags.map((t) => (
                 <span
                   key={t}
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "var(--font-mono)",
                     fontSize: 10.5,
                     color: "var(--color-text-muted)",
                     background: "rgba(136,146,176,0.08)",
@@ -154,10 +155,10 @@ export function SkillsApp() {
       <motion.h3
         {...stagger(10)}
         style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: 22,
-          fontWeight: 700,
-          letterSpacing: "-0.02em",
+          fontFamily: "var(--font-display)",
+          fontSize: 23,
+          fontWeight: 600,
+          letterSpacing: "-0.015em",
           color: "var(--color-text)",
           marginBottom: 20,
         }}
@@ -174,7 +175,7 @@ export function SkillsApp() {
           >
             <div
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 fontSize: 10.5,
                 color: "var(--color-text-muted)",
                 letterSpacing: "0.1em",
@@ -191,7 +192,7 @@ export function SkillsApp() {
                     key={chip}
                     whileHover={{ scale: 1.05 }}
                     style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontFamily: "var(--font-ui)",
                       fontSize: 13,
                       fontWeight: 500,
                       color: hl ? "var(--color-accent)" : "var(--color-text)",

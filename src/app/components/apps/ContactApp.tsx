@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Linkedin, Phone, Github, Download, Send, CheckCircle } from "lucide-react";
 import { SectionLabel, AppTitle, stagger } from "./shared";
+import { celebrate } from "../../../os/confetti";
+import { playSound } from "../../../os/sounds";
 import cvFile from "../../../assets/KC_Acuin_CV.pdf";
 
 const links = [
@@ -23,6 +25,8 @@ export function ContactApp() {
       setLoading(false);
       setSent(true);
       setForm({ name: "", email: "", message: "" });
+      playSound("send");
+      celebrate();
       setTimeout(() => setSent(false), 5000);
     }, 1200);
   };
@@ -34,7 +38,7 @@ export function ContactApp() {
     borderRadius: 10,
     padding: "12px 14px",
     color: "var(--color-text)",
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "var(--font-sans)",
     fontSize: 14,
     outline: "none",
     transition: "border-color 0.2s",
@@ -72,7 +76,7 @@ export function ContactApp() {
               gap: 12,
               color: "var(--color-text-muted)",
               textDecoration: "none",
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: 13,
               padding: "8px 12px",
               borderRadius: 10,
@@ -133,7 +137,7 @@ export function ContactApp() {
               color: sent ? "#0A0F1E" : "#fff",
               padding: "12px 20px",
               borderRadius: 10,
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--font-ui)",
               fontWeight: 600,
               fontSize: 14,
               border: "none",
@@ -167,7 +171,7 @@ export function ContactApp() {
               color: "var(--color-text)",
               padding: "12px 20px",
               borderRadius: 10,
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--font-ui)",
               fontWeight: 500,
               fontSize: 14,
               background: "transparent",
@@ -197,7 +201,7 @@ export function ContactApp() {
           marginTop: 24,
           paddingTop: 16,
           borderTop: "1px solid var(--color-border)",
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: 11,
           color: "var(--color-text-subtle)",
           textAlign: "center",

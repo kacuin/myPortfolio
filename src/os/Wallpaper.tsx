@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useIsMobile } from "./useIsMobile";
+import { SPRING_PARALLAX } from "./motion";
 
 /**
  * Living gradient wallpaper: large blurred color blobs drifting on slow CSS
@@ -29,8 +30,8 @@ export function Wallpaper() {
   const isMobile = useIsMobile();
   const mx = useMotionValue(0); // -0.5 .. 0.5 of viewport
   const my = useMotionValue(0);
-  const px = useSpring(mx, { stiffness: 40, damping: 18, mass: 0.6 });
-  const py = useSpring(my, { stiffness: 40, damping: 18, mass: 0.6 });
+  const px = useSpring(mx, SPRING_PARALLAX);
+  const py = useSpring(my, SPRING_PARALLAX);
 
   useEffect(() => {
     if (isMobile) return;

@@ -11,7 +11,7 @@ import cvFile from "../assets/KC_Acuin_CV.pdf";
 
 type MenuItem = { label: string; action?: () => void; disabled?: boolean };
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { EASE } from "./motion";
 
 function Menu({
   label,
@@ -39,7 +39,7 @@ function Menu({
           border: "none",
           background: open ? "var(--color-accent-dim)" : "transparent",
           color: "var(--color-text)",
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "var(--font-ui)",
           fontSize: 13,
           fontWeight: bold ? 700 : 500,
           padding: "3px 10px",
@@ -93,7 +93,7 @@ function Menu({
                     border: "none",
                     background: "transparent",
                     color: item.disabled ? "var(--color-text-subtle)" : "var(--color-text)",
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     fontSize: 13,
                     padding: "6px 10px",
                     borderRadius: 6,
@@ -221,7 +221,7 @@ export function MenuBar() {
       />
       <span
         style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "var(--font-ui)",
           fontSize: 13,
           fontWeight: 700,
           color: "var(--color-text)",

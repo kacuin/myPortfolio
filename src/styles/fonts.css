@@ -1,1 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Fraunces is loaded variable (opsz/wght/SOFT/WONK) — the opsz axis is why the
+   display serif holds up at both 88px in the hero and 15px on a card title.
+   Weights are clamped to what the app actually uses; widening the ranges here
+   costs real bytes on a cold load. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');

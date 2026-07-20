@@ -4,7 +4,7 @@ import {
   useReducer,
   useRef,
   type ReactNode,
-  type RefObject,
+  type MutableRefObject,
 } from "react";
 import { appById, type AppId } from "./apps";
 import { playSound } from "./sounds";
@@ -177,8 +177,14 @@ type Ctx = {
   zoomApp: (id: AppId) => void;
   markLaunched: (id: AppId) => void;
   minimizeAll: () => void;
-  /** Dock icon DOM nodes, keyed by app id — used to aim the minimize animation. */
-  iconRefs: RefObject<Partial<Record<AppId, HTMLElement | null>>>;
+  /** Dock icon DOM nodes, keyed by app id — used to aim the minimize animation.
+   *  MutableRefObject, not RefObject: this is a `useRef({})` that consumers
+   *  write into, and RefObject's `current` is `T | null`, which made every
+   *  read a null check the call sites weren't doing.
+   *  Note for a future React 19 bump: MutableRefObject is gone from those
+   *  types — this annotation becomes `RefObject<T>`, whose `current` is
+   *  mutable again in 19. */
+  iconRefs: MutableRefObject<Partial<Record<AppId, HTMLElement | null>>>;
 };
 
 const WindowManagerContext = createContext<Ctx | null>(null);

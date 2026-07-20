@@ -10,6 +10,22 @@
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+      <!-- Resolve the theme before first paint. React sets the same attribute,
+           but from an effect — which is one frame too late and shows a
+           light-preference visitor a flash of the dark desktop.
+           Mirrors ThemeContext.tsx; change both together. -->
+      <script>
+        (function () {
+          try {
+            var t = localStorage.getItem("theme");
+            // Anything but these two matches no selector in theme.css and would
+            // paint the app with zero tokens.
+            if (t !== "dark" && t !== "light")
+              t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", t);
+          } catch (e) {}
+        })();
+      </script>
       
     </head>
 

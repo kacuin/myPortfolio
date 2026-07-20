@@ -50,7 +50,7 @@ function devApiBridge(): Plugin {
   }
 }
 
-function figmaAssetResolver() {
+function figmaAssetResolver(): Plugin {
   return {
     name: 'figma-asset-resolver',
     resolveId(id) {

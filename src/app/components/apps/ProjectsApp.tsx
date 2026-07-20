@@ -19,6 +19,7 @@ import {
   Gem,
 } from "lucide-react";
 import { SectionLabel, AppTitle, stagger, EASE } from "./shared";
+import { SPRING_CARD } from "../../../os/motion";
 import { useIsMobile } from "../../../os/useIsMobile";
 
 type Project = {
@@ -225,7 +226,7 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
     <div style={{ marginBottom: 26 }}>
       <div
         style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: 11.5,
           color: "var(--color-accent)",
           letterSpacing: "0.15em",
@@ -362,7 +363,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
           border: "none",
           background: "transparent",
           color: "var(--color-accent)",
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: 12,
           cursor: "pointer",
           padding: "4px 0",
@@ -375,18 +376,18 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8, flexWrap: "wrap" }}>
         <h3
           style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 26,
-            fontWeight: 700,
+            fontFamily: "var(--font-display)",
+            fontSize: 27,
+            fontWeight: 600,
             color: "var(--color-text)",
-            letterSpacing: "-0.02em",
+            letterSpacing: "-0.015em",
           }}
         >
           {project.title}
         </h3>
         <span
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "var(--font-mono)",
             fontSize: 11,
             color: project.statusColor,
             border: `1px solid ${project.statusColor}`,
@@ -401,7 +402,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
 
       <div
         style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: 12,
           color: "var(--color-text-muted)",
           marginBottom: 18,
@@ -418,7 +419,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
 
       <div
         style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "var(--font-mono)",
           fontSize: 11.5,
           color: "var(--color-accent)",
           letterSpacing: "0.15em",
@@ -452,7 +453,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
           <span
             key={t}
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: 11.5,
               color: "var(--color-teal)",
               background: "var(--color-teal-dim)",
@@ -470,7 +471,6 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
 }
 
 const TILT = 7; // degrees at the card edges
-const cardSpring = { stiffness: 260, damping: 20, mass: 0.6 };
 
 function ParallaxCard({
   project,
@@ -489,11 +489,11 @@ function ParallaxCard({
   // Normalized cursor position within the card (0..1), center at rest.
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
-  const rotateX = useSpring(useTransform(my, [0, 1], [TILT, -TILT]), cardSpring);
-  const rotateY = useSpring(useTransform(mx, [0, 1], [-TILT, TILT]), cardSpring);
+  const rotateX = useSpring(useTransform(my, [0, 1], [TILT, -TILT]), SPRING_CARD);
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-TILT, TILT]), SPRING_CARD);
   // Screenshot drifts opposite the cursor, harder than the tilt — the depth cue.
-  const imgX = useSpring(useTransform(mx, [0, 1], [14, -14]), cardSpring);
-  const imgY = useSpring(useTransform(my, [0, 1], [14, -14]), cardSpring);
+  const imgX = useSpring(useTransform(mx, [0, 1], [14, -14]), SPRING_CARD);
+  const imgY = useSpring(useTransform(my, [0, 1], [14, -14]), SPRING_CARD);
   const glareX = useTransform(mx, (v) => v * 100);
   const glareY = useTransform(my, (v) => v * 100);
   const glare = useMotionTemplate`radial-gradient(240px circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.16), transparent 65%)`;
@@ -616,7 +616,7 @@ function ParallaxCard({
             </div>
             <span
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "var(--font-mono)",
                 fontSize: 10.5,
                 color: project.statusColor,
                 border: `1px solid ${project.statusColor}`,
@@ -628,19 +628,20 @@ function ParallaxCard({
               {project.status}
             </span>
           </div>
-          <div
+          <h3
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 16.5,
+              fontFamily: "var(--font-display)",
+              fontSize: 17.5,
               fontWeight: 600,
+              letterSpacing: "-0.01em",
               color: "var(--color-text)",
             }}
           >
             {project.title}
-          </div>
+          </h3>
           <div
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "var(--font-mono)",
               fontSize: 11,
               color: "var(--color-text-muted)",
             }}

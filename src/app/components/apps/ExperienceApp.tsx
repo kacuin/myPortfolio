@@ -171,19 +171,20 @@ export function ExperienceApp() {
                       marginBottom: 4,
                     }}
                   >
-                    <div
+                    <h3
                       style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: 15.5,
+                        fontFamily: "var(--font-display)",
+                        fontSize: 17,
                         fontWeight: 600,
+                        letterSpacing: "-0.01em",
                         color: "var(--color-text)",
                       }}
                     >
                       {job.title}
-                    </div>
+                    </h3>
                     <div
                       style={{
-                        fontFamily: "'JetBrains Mono', monospace",
+                        fontFamily: "var(--font-mono)",
                         fontSize: 11,
                         color: "var(--color-amber)",
                         background: "var(--color-amber-dim)",
@@ -236,7 +237,7 @@ export function ExperienceApp() {
                       >
                         <div
                           style={{
-                            fontFamily: "'JetBrains Mono', monospace",
+                            fontFamily: "var(--font-mono)",
                             fontSize: 11.5,
                             color: "var(--color-teal)",
                             marginBottom: 6,

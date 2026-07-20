@@ -190,9 +190,10 @@ export function KaiApp() {
         <div>
           <div
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 15,
-              fontWeight: 700,
+              // KAI is a name, so it gets the serif even here in the app bar.
+              fontFamily: "var(--font-display)",
+              fontSize: 16,
+              fontWeight: 600,
               color: "var(--color-text)",
             }}
           >
@@ -255,9 +256,10 @@ export function KaiApp() {
             </motion.div>
             <div
               style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 17,
-                fontWeight: 700,
+                fontFamily: "var(--font-display)",
+                fontSize: 19,
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
                 color: "var(--color-text)",
                 marginBottom: 6,
               }}
@@ -280,7 +282,7 @@ export function KaiApp() {
                   key={s}
                   onClick={() => void send(s)}
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "var(--font-mono)",
                     fontSize: 11.5,
                     color: "var(--color-accent)",
                     background: "var(--color-accent-dim)",
@@ -347,7 +349,7 @@ export function KaiApp() {
             borderRadius: 12,
             background: "var(--color-input-bg)",
             color: "var(--color-text)",
-            fontFamily: "'Inter', sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: 14,
             padding: "10px 14px",
             outline: "none",

@@ -19,5 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Runs before the build deliberately: `vite build` uses esbuild, which
+      # strips types without checking them, and never compiles api/ at all
+      # (Vercel builds that separately). This is the only step that sees them.
+      - name: Typecheck
+        run: npm run typecheck
+
       - name: Build
         run: npm run build

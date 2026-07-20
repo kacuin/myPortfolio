@@ -1,5 +1,24 @@
 /* ── Design tokens (dark default / light via data-theme) ── */
 
+/* Typography, radii, motion — theme-independent, so declared once rather than
+   in both theme blocks. Four families, four jobs: the fake OS's chrome is sans
+   (--font-ui) and its documents are serif (--font-display), the same split
+   real macOS makes. */
+:root {
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --dur-fast: 0.15s;
+  --dur-base: 0.3s;
+  --dur-slow: 0.6s;
+}
+
 :root,
 [data-theme="dark"] {
   --color-bg: #0A0F1E;
@@ -93,9 +112,61 @@ body,
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   overflow: hidden; /* desktop metaphor: the OS owns scrolling inside windows */
-  transition: background 0.3s, color 0.3s;
+  transition: background var(--dur-base), color var(--dur-base);
+  /* Lets Fraunces' opsz axis track the rendered size on its own — the whole
+     reason the variable font is worth its weight. */
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The hero photo and the intro text compete for width once the flex row wraps.
+   Below that point the photo becomes a supporting element, not a co-star.
+   (This class was on the markup with no rule behind it.) */
+@media (max-width: 900px) {
+  .hero-photo {
+    width: clamp(140px, 34vw, 200px) !important;
+  }
+}
+
+/* The hero is a centered flex child of a fixed, non-scrollable desktop. When
+   its content is taller than the space, plain `center` overflows symmetrically
+   and the top is unreachable — nothing here can scroll. `safe center` falls
+   back to start-alignment exactly then.
+
+   Both declarations are required and the order matters: Safari below 16.4
+   doesn't know `safe` and drops that line, so without the plain `center` above
+   it align-items would reset to `normal` (stretch) and the layout would break
+   worse than the bug being fixed. This is also why it can't be an inline
+   style — a style object can only hold one value per key. */
+.hero-shell {
+  align-items: center;
+  align-items: safe center;
+  padding: var(--menubar-h) 24px 110px;
+}
+
+/* Short viewports: the wrapped hero column is taller than the space, so shed
+   the most expendable parts rather than let it overflow. The hint points at a
+   dock that is already on screen, and the bottom padding is sized for a dock
+   that needs less clearance here. */
+@media (max-height: 720px) {
+  .hero-hint {
+    display: none !important;
+  }
+
+  .hero-shell {
+    padding-bottom: 76px;
+  }
+}
+
+/* Keyboard affordance. The app is entirely custom-styled, so without this
+   there is no visible focus anywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar {
@@ -146,4 +217,19 @@ textarea {
   0%, 100% { transform: translate(0, 0) scale(1); }
   30% { transform: translate(5vmax, -5vmax) scale(0.92); }
   65% { transform: translate(-6vmax, 2vmax) scale(1.1); }
+}
+
+/* ── Reduced motion ──
+   Catches the CSS-driven loops (wallpaper drift, blinking cursors). The JS
+   animations are gated separately via motion's useReducedMotion, since
+   framer's transforms are inline styles this can't reach. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

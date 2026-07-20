@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   User,
   Briefcase,
@@ -31,7 +32,9 @@ export type AppId =
 export type AppDef = {
   id: AppId;
   name: string;
-  icon: ComponentType<{ size?: number | string; strokeWidth?: number; color?: string }>;
+  /** Lucide's own type — the hand-written prop shape this replaced declared
+   *  strokeWidth as number, while Lucide accepts string | number. */
+  icon: LucideIcon;
   /** Icon tile gradient stops */
   tint: [string, string];
   component: ComponentType;

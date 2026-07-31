@@ -9,7 +9,6 @@ type Job = {
   date: string;
   active: boolean;
   bullets: ReactNode[];
-  sub?: { label: string; bullets: ReactNode[] };
 };
 
 const strong = (t: string) => (
@@ -18,37 +17,42 @@ const strong = (t: string) => (
 
 const jobs: Job[] = [
   {
-    title: "Mid-Level Full Stack Developer & Team Lead",
+    title: "Tech Lead & Mid-Level Full Stack Developer",
     company: "Odecci Solutions Inc.",
     date: "Feb 2026 – Present",
     active: true,
     bullets: [
+      <>Named by the CTO as {strong("Tech Lead")} for code quality, delivery progress, and documentation — leading {strong("four direct reports")} plus an external vendor development team.</>,
+      <>Lead the {strong("React Native cross-platform migration")} of a Gulf property group's resident-services app: a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the 2.0 deployment plan.</>,
+      <>Overturned a client-requested rename-and-republish in favour of an in-place store update by citing an {strong("ADR")} identity-preservation finding — removing an entire release cycle.</>,
+      "Sole owner of an Australian client engagement end to end — environment, deploy workflow, domain and SSL, Laravel scaffold, and AI tooling.",
       <>Mobile lead for an {strong("all-in-one service booking platform")} in Flutter, integrating Firebase, Google Maps API, and third-party SDKs.</>,
-      "Driving technical roadmap and architecture decisions for the full mobile portfolio; leading a 2-person dev team through active sprint cycles.",
-      <>Implementing AI-driven development workflows with {strong("GitHub Copilot (MCP & AI Agents)")} for accelerated feature delivery.</>,
-      "Mentoring engineers on clean architecture, code review standards, and Agile best practices.",
+      "Instituted the team's operating cadence: written work logs, a shared blocker register, and a 24-hour PR-review SLA.",
+    ],
+  },
+  {
+    title: "Acting Tech Lead",
+    company: "Odecci Solutions Inc.",
+    date: "Oct 2025 – Jan 2026",
+    active: false,
+    bullets: [
+      <>Appointed Acting Tech Lead while continuing IC responsibilities — drove all Agile ceremonies for {strong("4 engineers")}.</>,
+      <>Owned technical decisions and authored the team's first {strong("Architecture Decision Records (ADRs)")}.</>,
+      <>Built and maintained CI/CD pipelines using {strong("GitHub Actions + Expo EAS + Docker")}.</>,
     ],
   },
   {
     title: "Full Stack & Mobile Developer",
     company: "Odecci Solutions Inc.",
-    date: "Jan 2024 – Jan 2026",
+    date: "Jan 2024 – Sep 2025",
     active: false,
     bullets: [
-      <>Sole maintainer of the company's entire mobile portfolio — {strong("iOS (Swift/Obj-C), Android (Kotlin/Java), React Native")}.</>,
-      <>Reduced app crash rate by {strong("68%")} via automated testing and disciplined tech debt management.</>,
-      <>Cut release cycle from {strong("3 weeks to under 4 days")} with CI/CD pipelines and automated workflows.</>,
+      <>Sole maintainer of the company's entire mobile portfolio — {strong("iOS (Swift/Obj-C), Android (Kotlin/Java), React Native")} — five production apps on the App Store and Google Play.</>,
+      <>Cut production crash rate by {strong("roughly two-thirds")} via automated crash reporting, disciplined pre-release testing, and tech debt retirement.</>,
+      <>Reduced release cycle from {strong("~3 weeks to under 4 days")} with CI/CD pipelines and automated build and distribution workflows.</>,
       <>Migrated a lending management web app from microservices to a {strong("clean monolith")} and designed the future system architecture roadmap.</>,
-      <>Achieved {strong("2–3× feature delivery acceleration")} using AI-assisted tools (Claude, Grok, Cursor).</>,
+      <>Established AI-assisted development as standard workflow, backed by a {strong("persistent engineering knowledge vault")}.</>,
     ],
-    sub: {
-      label: "Acting Tech Lead · Oct 2025 – Jan 2026",
-      bullets: [
-        <>Appointed Acting Tech Lead while continuing IC responsibilities — drove all Agile ceremonies for {strong("4 engineers")}.</>,
-        <>Owned technical decisions and {strong("Architecture Decision Records (ADRs)")}.</>,
-        <>Built and maintained CI/CD pipelines using {strong("GitHub Actions + Expo EAS + Docker")}.</>,
-      ],
-    },
   },
   {
     title: "Part-Time Full Stack Developer",
@@ -63,7 +67,7 @@ const jobs: Job[] = [
   {
     title: "WordPress Developer",
     company: "Odecci Solutions Inc.",
-    date: "Nov 2023 – May 2024",
+    date: "Nov 2023 – Jan 2024",
     active: false,
     bullets: [
       "Maintained and developed client WordPress sites using Elementor, Divi Theme, and industry-standard plugins.",
@@ -81,11 +85,11 @@ const jobs: Job[] = [
   },
 ];
 
-function Bullet({ children, small }: { children: ReactNode; small?: boolean }) {
+function Bullet({ children }: { children: ReactNode }) {
   return (
     <li
       style={{
-        fontSize: small ? 13 : 13.5,
+        fontSize: 13.5,
         color: "var(--color-text-muted)",
         padding: "4px 0 4px 18px",
         position: "relative",
@@ -224,35 +228,6 @@ export function ExperienceApp() {
                         <Bullet key={bi}>{b}</Bullet>
                       ))}
                     </ul>
-
-                    {job.sub && (
-                      <div
-                        style={{
-                          marginTop: 12,
-                          padding: 14,
-                          background: "rgba(79,110,247,0.05)",
-                          border: "1px solid rgba(79,110,247,0.15)",
-                          borderRadius: 10,
-                        }}
-                      >
-                        <div
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            fontSize: 11.5,
-                            color: "var(--color-teal)",
-                            marginBottom: 6,
-                            letterSpacing: "0.05em",
-                          }}
-                        >
-                          ⬡ {job.sub.label}
-                        </div>
-                        <ul style={{ listStyle: "none" }}>
-                          {job.sub.bullets.map((b, bi) => (
-                            <Bullet key={bi} small>{b}</Bullet>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </motion.div>
                 )}
               </AnimatePresence>

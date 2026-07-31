@@ -158,14 +158,15 @@ export function DesktopHero() {
               maxWidth: 520,
             }}
           >
-            Mobile developer from the Philippines — Team Lead at{" "}
+            Mobile developer from the Philippines — Tech Lead at{" "}
             <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>
               Odecci Solutions Inc.
             </strong>{" "}
             I ship production apps across Flutter, React Native, iOS, Android, and Laravel,
-            and pair heavily with AI — cutting debug time{" "}
-            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>70%</strong> and
-            release cycles from weeks to days.
+            lead{" "}
+            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>four engineers</strong>{" "}
+            across Gulf and Australian client work, and pair heavily with AI — agentic
+            workflows, MCP tooling, and a knowledge vault that compounds.
           </motion.p>
 
           <motion.div

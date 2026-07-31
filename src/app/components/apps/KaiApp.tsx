@@ -22,7 +22,7 @@ function offlineReply(q: string): string {
   else if (t.includes("stack") || t.includes("mobile") || t.includes("flutter"))
     a = "KC works across Flutter/Dart, React Native (Expo), native iOS (Swift/UIKit), native Android (Kotlin), and Laravel on the backend — with Firebase, CI/CD via GitHub Actions and EAS, and clean architecture throughout.";
   else if (t.includes("ai") || t.includes("workflow"))
-    a = "KC pairs with AI agents end-to-end — planning, coding, and verification. It cut his debugging time by ~70% and brought team releases from a week down to about 4 days.";
+    a = "KC pairs with AI agents end-to-end — planning, coding, and verification — backed by a persistent knowledge vault so the same lesson never gets paid for twice. It's a daily engineering discipline for him, not a novelty.";
   else if (t.includes("build") || t.includes("project") || t.includes("work"))
     a = "KC ships production mobile and web apps — Flutter and React Native apps live on the App Store and Google Play, native iOS and Android work, and Laravel systems. Client engagements are under NDA, so the Projects app describes them without naming clients.";
   else

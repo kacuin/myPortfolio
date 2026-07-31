@@ -30,7 +30,7 @@ const skills = [
   {
     icon: <Crown size={20} />,
     title: "Leadership & Management",
-    tags: ["Team Lead", "Agile/Scrum", "Mentoring", "Roadmap Ownership", "Stakeholder Mgmt", "Risk Mitigation"],
+    tags: ["Tech Lead", "Agile/Scrum", "Mentoring", "Code Review", "Vendor Mgmt", "Stakeholder Mgmt", "Technical Writing"],
     color: "var(--color-teal)",
   },
   {

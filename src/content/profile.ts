@@ -16,30 +16,34 @@ export const SITE_URL = "https://kcacuin.vercel.app";
 export const PROFILE = {
   name: "KC Acuin",
   title: "AI-Accelerated Mobile Developer",
-  jobTitle: "Full Stack & Mobile Developer, Team Lead",
+  jobTitle: "Tech Lead, Full Stack & Mobile Engineer",
   company: "Odecci Solutions Inc.",
   location: "Caloocan, Philippines",
 
   metaDescription:
-    "Mobile developer shipping production Flutter, iOS, and Android apps to the App Store and Google Play. AI-driven workflows cut debug time 70% and release cycles from weeks to days.",
+    "Tech Lead and mobile engineer shipping production Flutter, iOS, and Android apps to the App Store and Google Play. Leads a four-engineer team across Gulf and Australian client engagements, delivered remotely.",
 
   /** Typewriter rotation in DesktopHero — AI leads, credentials support. */
   heroPhrases: [
     "AI-Accelerated Developer.",
     "Mobile Engineer.",
     "Full Stack Developer.",
-    "Team Lead & Architect.",
+    "Tech Lead & Architect.",
   ],
 
   summary:
-    "Mobile-first developer from Caloocan, Philippines, shipping production Flutter, React Native, iOS, and Android apps. Team Lead and System Architect at Odecci Solutions Inc., where AI-driven workflows — agentic tooling, MCP, and a persistent knowledge vault — cut debug time by 70% and pulled release cycles from weeks down to four days.",
+    "Mobile-first developer from Caloocan, Philippines, shipping production Flutter, React Native, iOS, and Android apps. Tech Lead at Odecci Solutions Inc. — named by the CTO as owner of code quality, delivery progress, and documentation for a four-engineer team and an external vendor team. Delivers Gulf and Australian client engagements entirely remotely, backed by AI-driven workflows: agentic tooling, MCP, and a persistent knowledge vault.",
 
-  /** Mirrors the metrics AboutApp animates, so the two never disagree. */
+  /**
+   * Mirrors the metrics AboutApp animates, so the two never disagree.
+   * Countable facts only — each one traces to a dated artifact. Percentage
+   * self-estimates were removed in favour of numbers that survive scrutiny.
+   */
   metrics: [
     "3+ years shipping to production",
-    "68% crash-rate reduction",
-    "70% debug time cut via AI-driven workflows",
-    "Release cycle from weeks to 4 days",
+    "5 production apps on the App Store and Google Play",
+    "4 engineers led as Tech Lead",
+    "262-case cross-platform regression suite authored",
   ],
 
   skills: [
@@ -68,9 +72,9 @@ export const PROFILE = {
     },
     {
       name: "Resident Services App",
-      role: "iOS Developer · 2025–2026",
+      role: "iOS Developer → Migration Lead · 2025–2026",
       blurb:
-        "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline.",
+        "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline. Now leads the cross-platform React Native 2.0 migration — a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the deployment plan.",
     },
     {
       name: "Livestock Field App",
@@ -88,7 +92,7 @@ export const PROFILE = {
       name: "Quorfin",
       role: "Solo Builder · 2026",
       blurb:
-        "Personal offline-first finance app in Flutter. Field-level AES encryption at rest, biometric app lock, encrypted backups, and PDF/CSV export — no account required.",
+        "Personal offline-first finance app in Flutter. Field-level AES encryption at rest, biometric app lock, crash-safe key rotation, encrypted backups, and PDF/CSV export — no account required. Includes a streaming AI advisor with bring-your-own-key and full offline fallback.",
     },
   ],
 

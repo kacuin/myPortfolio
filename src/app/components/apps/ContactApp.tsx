@@ -53,7 +53,7 @@ export function ContactApp() {
 
   return (
     <div style={{ padding: "28px 32px 32px" }}>
-      <SectionLabel>06 · CONTACT</SectionLabel>
+      {/* <SectionLabel>06 · CONTACT</SectionLabel> */}
       <AppTitle>Let's build something.</AppTitle>
       <motion.p
         {...stagger(2)}

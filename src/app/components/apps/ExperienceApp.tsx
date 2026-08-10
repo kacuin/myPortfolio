@@ -109,7 +109,7 @@ export function ExperienceApp() {
 
   return (
     <div style={{ padding: "28px 32px 32px" }}>
-      <SectionLabel>02 · EXPERIENCE</SectionLabel>
+      {/* <SectionLabel>02 · EXPERIENCE</SectionLabel> */}
       <AppTitle>Where I've worked.</AppTitle>
       <motion.p
         {...stagger(2)}

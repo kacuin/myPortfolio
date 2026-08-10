@@ -72,7 +72,7 @@ const stack = [
 export function SkillsApp() {
   return (
     <div style={{ padding: "28px 32px 32px" }}>
-      <SectionLabel>04 · SKILLS</SectionLabel>
+      {/* <SectionLabel>04 · SKILLS</SectionLabel> */}
       <AppTitle>What I bring to the table.</AppTitle>
       <motion.p
         {...stagger(2)}

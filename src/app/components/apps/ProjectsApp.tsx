@@ -687,7 +687,7 @@ export function ProjectsApp() {
           transition={{ duration: 0.3, ease: EASE }}
           style={{ padding: "28px 32px 32px" }}
         >
-          <SectionLabel>03 · PROJECTS</SectionLabel>
+          {/* <SectionLabel>03 · PROJECTS</SectionLabel> */}
           <AppTitle>Things I've shipped.</AppTitle>
           <motion.p
             {...stagger(2)}

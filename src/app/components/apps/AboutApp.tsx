@@ -55,7 +55,7 @@ const metrics = [
 export function AboutApp() {
   return (
     <div style={{ padding: "28px 32px 32px" }}>
-      <SectionLabel>01 · ABOUT</SectionLabel>
+      {/* <SectionLabel>01 · ABOUT</SectionLabel> */}
       <AppTitle>The person behind the code.</AppTitle>
 
       {[

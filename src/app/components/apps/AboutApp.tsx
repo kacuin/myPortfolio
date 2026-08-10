@@ -34,9 +34,11 @@ function AnimatedNumber({ target, suffix = "" }: { target: number; suffix?: stri
     requestAnimationFrame(animate);
   }, [inView, target]);
 
+  // Grouped: the user-count tile reaches four digits, and "6878" reads as a
+  // version string rather than a quantity without the separator.
   return (
     <span ref={ref}>
-      {val}{suffix}
+      {val.toLocaleString("en-US")}{suffix}
     </span>
   );
 }
@@ -47,7 +49,7 @@ const metrics = [
   { num: 3, suffix: "+", label: "Years in production", color: "var(--color-accent)" },
   { num: 5, suffix: "", label: "Production apps shipped", color: "var(--color-teal)" },
   { num: 4, suffix: "", label: "Engineers led", color: "var(--color-amber)" },
-  { num: 262, suffix: "", label: "Regression cases authored", color: "var(--color-accent)" },
+  { num: 6878, suffix: "", label: "Active users served", color: "var(--color-accent)" },
 ];
 
 export function AboutApp() {
@@ -57,7 +59,7 @@ export function AboutApp() {
       <AppTitle>The person behind the code.</AppTitle>
 
       {[
-        <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>Tech Lead and System Architect</strong> within three years — at the same company, through shipped features, measurable outcomes, and earned trust.</>,
+        <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>Tech Lead</strong> within three years — at the same company, through shipped features, measurable outcomes, and earned trust.</>,
         <>My work spans the full stack: mobile-first with Flutter and React Native, backend with Laravel, and everything in between. I don't just write code — I <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>own systems</strong>, make architecture decisions, write ADRs, mentor engineers, and run Agile ceremonies.</>,
         <>I also pair heavily with AI: agentic workflows, MCP tooling, and a persistent knowledge vault keep my team shipping faster without cutting corners.</>,
         <>Outside of work, I'm a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>lay preacher and ministry worker</strong> with a Filipino church team. That work — communicating complex ideas clearly to diverse audiences — sharpens how I think about technical communication and leading teams.</>,

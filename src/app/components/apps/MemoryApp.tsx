@@ -47,6 +47,7 @@ const LINES: Line[] = [
   body("Verification before 'done' — a green build is not proof."),
   teal("262-case regression suite — 16 modules, 2 platforms"),
   teal("5 production apps on the App Store & Google Play"),
+  teal("99 of 102 support tickets resolved — 7 months"),
   teal("4 engineers led as Tech Lead"),
   blank(),
   cmd("cat memory/verdict.md"),

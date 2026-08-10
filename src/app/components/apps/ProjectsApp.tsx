@@ -158,13 +158,12 @@ const projects: Project[] = [
     status: "Client work",
     statusColor: "var(--color-amber)",
     description:
-      "Lending management system migrated from microservices to a clean monolith. Built UI/UX in Figma, implemented frontend, and designed the future system architecture roadmap.",
+      "Lending management system consolidated from a fragmented microservices deployment into a single Laravel application. Built UI/UX in Figma, implemented the front end, and executed the migration.",
     tags: ["Laravel", "PHP", "Figma", "MySQL", "Livewire"],
     year: "2023–2024",
     role: "Full Stack Dev",
     highlights: [
-      "Migrated from microservices to clean monolith",
-      "Designed complete system architecture roadmap",
+      "Executed the consolidation into a single Laravel application",
       "Full UI/UX from Figma to implementation",
       "Laravel + Livewire for reactive UI",
     ],

@@ -35,7 +35,10 @@ export const PROFILE = {
     "Mobile-first developer from Caloocan, Philippines, shipping production Flutter, React Native, iOS, and Android apps. Tech Lead at Odecci Solutions Inc. — named by the CTO as owner of code quality, delivery progress, and documentation for a four-engineer team and an external vendor team. Delivers Gulf and Australian client engagements entirely remotely, backed by AI-driven workflows: agentic tooling, MCP, and a persistent knowledge vault.",
 
   /**
-   * Mirrors the metrics AboutApp animates, so the two never disagree.
+   * The full metric set for the crawlable SEO block. AboutApp animates the
+   * four that fit its tile grid — a subset of these, never a contradiction of
+   * them; if you change a number here, change it there too.
+   *
    * Countable facts only — each one traces to a dated artifact. Percentage
    * self-estimates were removed in favour of numbers that survive scrutiny.
    */
@@ -43,6 +46,8 @@ export const PROFILE = {
     "3+ years shipping to production",
     "5 production apps on the App Store and Google Play",
     "4 engineers led as Tech Lead",
+    "6,878 active users served across the mobile portfolio",
+    "99 of 102 support tickets resolved in seven months",
     "262-case cross-platform regression suite authored",
   ],
 
@@ -74,7 +79,7 @@ export const PROFILE = {
       name: "Resident Services App",
       role: "iOS Developer → Migration Lead · 2025–2026",
       blurb:
-        "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline. Now leads the cross-platform React Native 2.0 migration — a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the deployment plan.",
+        "Resident-services iOS app for a regional property group, serving 6,878 active residents. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline. Now leads the cross-platform React Native 2.0 migration — a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the deployment plan.",
     },
     {
       name: "Livestock Field App",
@@ -86,7 +91,7 @@ export const PROFILE = {
       name: "Membership Privileges App",
       role: "Mobile Engineer · 2025–Present",
       blurb:
-        "React Native membership app shipped to both app stores via Expo EAS — digital membership card with QR verification and a privileges catalog.",
+        "React Native membership app shipped to both app stores via Expo EAS — digital membership card with QR verification and a privileges catalog, serving 1,559 active members.",
     },
     {
       name: "Quorfin",

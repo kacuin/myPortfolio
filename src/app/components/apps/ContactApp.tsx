@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Mail, Linkedin, Phone, Github, Download, Send, CheckCircle } from "lucide-react";
-import { SectionLabel, AppTitle, stagger } from "./shared";
+import { AppTitle, stagger } from "./shared";
 import { celebrate } from "../../../os/confetti";
 import { playSound } from "../../../os/sounds";
 import cvFile from "../../../assets/KC_Acuin_CV.pdf";

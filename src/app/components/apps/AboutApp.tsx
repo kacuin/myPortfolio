@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { MapPin, Building2, GraduationCap, Mail, Handshake } from "lucide-react";
-import { SectionLabel, AppTitle, stagger } from "./shared";
+import { AppTitle, stagger } from "./shared";
 
 const tags = [
   "Flutter", "React Native", "Laravel", "iOS Swift",

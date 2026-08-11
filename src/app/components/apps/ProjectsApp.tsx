@@ -18,7 +18,7 @@ import {
   PawPrint,
   Gem,
 } from "lucide-react";
-import { SectionLabel, AppTitle, stagger, EASE } from "./shared";
+import { AppTitle, stagger, EASE } from "./shared";
 import { SPRING_CARD } from "../../../os/motion";
 import { useIsMobile } from "../../../os/useIsMobile";
 

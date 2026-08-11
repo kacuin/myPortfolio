@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import { SectionLabel, AppTitle, stagger, EASE } from "./shared";
+import { AppTitle, stagger, EASE } from "./shared";
 
 type Job = {
   title: string;

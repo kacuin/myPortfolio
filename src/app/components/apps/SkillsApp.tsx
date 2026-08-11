@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Smartphone, Globe, Settings, Bot, Crown, Palette } from "lucide-react";
-import { SectionLabel, AppTitle, stagger } from "./shared";
+import { AppTitle, stagger } from "./shared";
 
 const skills = [
   {
@@ -151,7 +151,7 @@ export function SkillsApp() {
         ))}
       </div>
 
-      <SectionLabel index={9}>05 · TECH STACK</SectionLabel>
+      {/* <SectionLabel index={9}>05 · TECH STACK</SectionLabel> */}
       <motion.h3
         {...stagger(10)}
         style={{

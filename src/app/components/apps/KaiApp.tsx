@@ -18,15 +18,15 @@ function offlineReply(q: string): string {
   const t = q.toLowerCase();
   let a: string;
   if (t.includes("contact") || t.includes("email") || t.includes("hire"))
-    a = "You can reach KC at wkcacuin@gmail.com, or find him on GitHub (kcacuin) and LinkedIn (in/kcacuin). The Contact app in the dock has everything, including his CV.";
+    a = "You can reach KC at hello@kcacuin.com, or find him on GitHub (kcacuin) and LinkedIn (in/kcacuin). The Contact app in the dock has everything, including his CV.";
   else if (t.includes("stack") || t.includes("mobile") || t.includes("flutter"))
-    a = "KC works across Flutter/Dart, React Native (Expo), native iOS (Swift/UIKit), native Android (Kotlin), and Laravel on the backend — with Firebase, CI/CD via GitHub Actions and EAS, and clean architecture throughout.";
+    a = "KC works across Flutter/Dart, React Native (Expo), native iOS (Swift/UIKit), native Android (Kotlin), and Laravel on the backend, with Firebase, CI/CD via GitHub Actions and EAS, and clean architecture throughout.";
   else if (t.includes("ai") || t.includes("workflow"))
-    a = "KC pairs with AI agents end-to-end — planning, coding, and verification — backed by a persistent knowledge vault so the same lesson never gets paid for twice. It's a daily engineering discipline for him, not a novelty.";
+    a = "KC pairs with AI agents end-to-end (planning, coding, and verification), backed by a persistent knowledge vault so the same lesson never gets paid for twice. It's a daily engineering discipline for him, not a novelty.";
   else if (t.includes("build") || t.includes("project") || t.includes("work"))
-    a = "KC ships production mobile and web apps — Flutter and React Native apps live on the App Store and Google Play, native iOS and Android work, and Laravel systems. Client engagements are under NDA, so the Projects app describes them without naming clients.";
+    a = "KC ships production mobile and web apps: Flutter and React Native apps live on the App Store and Google Play, native iOS and Android work, and Laravel systems. Client engagements are under NDA, so the Projects app describes them without naming clients.";
   else
-    a = "I'm KAI, KC's AI. I can tell you about his projects, stack, experience at Odecci Solutions, or how to reach him — try asking about any of those, or open the Projects app from the dock.";
+    a = "I'm KAI, KC's AI. I can tell you about his projects, stack, experience at Odecci Solutions, or how to reach him. Try asking about any of those, or open the Projects app from the dock.";
   return `(offline mode) ${a}`;
 }
 
@@ -178,7 +178,7 @@ export function KaiApp() {
             width: 38,
             height: 38,
             borderRadius: 11,
-            background: "linear-gradient(145deg, #7C5CFC, #4F6EF7)",
+            background: "var(--gradient-kai)",
             display: "grid",
             placeItems: "center",
             color: "#fff",
@@ -217,7 +217,7 @@ export function KaiApp() {
                 display: "inline-block",
               }}
             />
-            KC's AI — ask me anything about him
+            KC's AI: ask me anything about him
           </div>
         </div>
       </div>
@@ -245,7 +245,7 @@ export function KaiApp() {
                 height: 60,
                 borderRadius: 18,
                 margin: "0 auto 14px",
-                background: "linear-gradient(145deg, #7C5CFC, #4F6EF7)",
+                background: "var(--gradient-kai)",
                 display: "grid",
                 placeItems: "center",
                 color: "#fff",
@@ -264,7 +264,7 @@ export function KaiApp() {
                 marginBottom: 6,
               }}
             >
-              Hi, I'm KAI — KC's AI.
+              Hi, I'm KAI, KC's AI.
             </div>
             <p style={{ fontSize: 13, color: "var(--color-text-muted)", marginBottom: 18 }}>
               Ask me about KC's projects, stack, or how to reach him.
@@ -369,7 +369,7 @@ export function KaiApp() {
             background:
               busy || !input.trim()
                 ? "var(--color-surface)"
-                : "linear-gradient(145deg, #7C5CFC, #4F6EF7)",
+                : "var(--gradient-kai)",
             color: busy || !input.trim() ? "var(--color-text-subtle)" : "#fff",
             display: "grid",
             placeItems: "center",

@@ -11,7 +11,7 @@
  * api/chat.ts are still separate — consolidating them is a later refactor.
  */
 
-export const SITE_URL = "https://kcacuin.vercel.app";
+export const SITE_URL = "https://kcacuin.com";
 
 export const PROFILE = {
   name: "KC Acuin",
@@ -21,7 +21,7 @@ export const PROFILE = {
   location: "Caloocan, Philippines",
 
   metaDescription:
-    "Tech Lead and mobile engineer shipping production Flutter, iOS, and Android apps to the App Store and Google Play. Leads a four-engineer team across Gulf and Australian client engagements, delivered remotely.",
+    "Tech Lead and mobile engineer shipping production Flutter, iOS, and Android apps to the App Store and Google Play. Leads a four-person team across Gulf and Australian client engagements, delivered remotely.",
 
   /** Typewriter rotation in DesktopHero — AI leads, credentials support. */
   heroPhrases: [
@@ -32,7 +32,7 @@ export const PROFILE = {
   ],
 
   summary:
-    "Mobile-first developer from Caloocan, Philippines, shipping production Flutter, React Native, iOS, and Android apps. Tech Lead at Odecci Solutions Inc. — named by the CTO as owner of code quality, delivery progress, and documentation for a four-engineer team and an external vendor team. Delivers Gulf and Australian client engagements entirely remotely, backed by AI-driven workflows: agentic tooling, MCP, and a persistent knowledge vault.",
+    "Mobile-first developer from Caloocan, Philippines, shipping production Flutter, React Native, iOS, and Android apps. Tech Lead at Odecci Solutions Inc., named by the CTO as owner of code quality, delivery progress, and documentation for a four-person team (two engineers, an application specialist, and a project manager) and an external vendor team. Delivers Gulf and Australian client engagements entirely remotely, backed by AI-driven workflows: agentic tooling, MCP, and a persistent knowledge vault.",
 
   /**
    * The full metric set for the crawlable SEO block. AboutApp animates the
@@ -45,7 +45,7 @@ export const PROFILE = {
   metrics: [
     "3+ years shipping to production",
     "5 production apps on the App Store and Google Play",
-    "4 engineers led as Tech Lead",
+    "4 direct reports led as Tech Lead",
     "6,878 active users served across the mobile portfolio",
     "99 of 102 support tickets resolved in seven months",
     "262-case cross-platform regression suite authored",
@@ -79,7 +79,7 @@ export const PROFILE = {
       name: "Resident Services App",
       role: "iOS Developer → Migration Lead · 2025–2026",
       blurb:
-        "Resident-services iOS app for a regional property group, serving 6,878 active residents. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline. Now leads the cross-platform React Native 2.0 migration — a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the deployment plan.",
+        "Resident-services iOS app for a regional property group, serving 6,878 active residents. Owned the native Swift/UIKit codebase, rebuilding the in-app customer-service chat attachment and image pipeline. Now leads the cross-platform React Native 2.0 migration: a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the deployment plan.",
     },
     {
       name: "Livestock Field App",
@@ -91,18 +91,18 @@ export const PROFILE = {
       name: "Membership Privileges App",
       role: "Mobile Engineer · 2025–Present",
       blurb:
-        "React Native membership app shipped to both app stores via Expo EAS — digital membership card with QR verification and a privileges catalog, serving 1,559 active members.",
+        "React Native membership app shipped to both app stores via Expo EAS: digital membership card with QR verification and a privileges catalog, serving 1,559 active members.",
     },
     {
       name: "Quorfin",
       role: "Solo Builder · 2026",
       blurb:
-        "Personal offline-first finance app in Flutter. Field-level AES encryption at rest, biometric app lock, crash-safe key rotation, encrypted backups, and PDF/CSV export — no account required. Includes a streaming AI advisor with bring-your-own-key and full offline fallback.",
+        "Personal offline-first finance app in Flutter. Field-level AES encryption at rest, biometric app lock, crash-safe key rotation, encrypted backups, and PDF/CSV export, no account required. Includes a streaming AI advisor with bring-your-own-key and full offline fallback.",
     },
   ],
 
   contact: {
-    email: "wkcacuin@gmail.com",
+    email: "hello@kcacuin.com",
     github: "https://github.com/kcacuin",
     linkedin: "https://linkedin.com/in/kcacuin",
   },

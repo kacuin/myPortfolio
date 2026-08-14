@@ -4,24 +4,38 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { seoContent } from './vite-plugins/seoContent'
 
-// Dev-only bridge: serves /api/chat (the Vercel edge function) inside `npm run dev`
-// so KAI works locally without `vercel dev`. Production routing is Vercel's.
+// Dev-only bridge: serves the Vercel edge functions inside `npm run dev` so KAI
+// and the contact form work locally without `vercel dev`. Production routing is
+// Vercel's — every file added here must have a matching api/<name>.ts.
+const API_ROUTES = ['chat', 'contact'] as const
+
+// Forwarded so the edge handlers can read them from process.env in dev exactly
+// as they do in production.
+const API_ENV_KEYS = [
+  'OPENROUTER_API_KEY',
+  'OPENROUTER_MODEL',
+  'BREVO_API_KEY',
+  'CONTACT_TO',
+  'CONTACT_FROM',
+] as const
+
 function devApiBridge(): Plugin {
   return {
     name: 'dev-api-bridge',
     apply: 'serve',
     configureServer(server: ViteDevServer) {
       const env = loadEnv(server.config.mode, process.cwd(), '')
-      if (env.OPENROUTER_API_KEY) process.env.OPENROUTER_API_KEY = env.OPENROUTER_API_KEY
-      if (env.OPENROUTER_MODEL) process.env.OPENROUTER_MODEL = env.OPENROUTER_MODEL
+      for (const key of API_ENV_KEYS) {
+        if (env[key]) process.env[key] = env[key]
+      }
 
-      server.middlewares.use('/api/chat', (req, res) => {
+      for (const route of API_ROUTES) server.middlewares.use(`/api/${route}`, (req, res) => {
         void (async () => {
           try {
-            const mod = await server.ssrLoadModule('/api/chat.ts')
+            const mod = await server.ssrLoadModule(`/api/${route}.ts`)
             const chunks: Buffer[] = []
             for await (const chunk of req) chunks.push(chunk as Buffer)
-            const request = new Request(`http://${req.headers.host}/api/chat`, {
+            const request = new Request(`http://${req.headers.host}/api/${route}`, {
               method: req.method,
               headers: Object.fromEntries(
                 Object.entries(req.headers).filter(([, v]) => typeof v === 'string')

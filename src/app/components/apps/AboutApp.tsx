@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { MapPin, Building2, GraduationCap, Mail, Handshake } from "lucide-react";
-import { AppTitle, stagger } from "./shared";
+import { AppShell, stagger } from "./shared";
 
 const tags = [
   "Flutter", "React Native", "Laravel", "iOS Swift",
@@ -11,8 +11,8 @@ const tags = [
 const cardRows = [
   { icon: <MapPin size={16} />, label: "Location", val: "Caloocan, Philippines" },
   { icon: <Building2 size={16} />, label: "Current role", val: "Tech Lead & Mid-Level Full Stack Dev" },
-  { icon: <GraduationCap size={16} />, label: "Education", val: "Diploma in CompEng Tech — PUP (2020–2024)" },
-  { icon: <Mail size={16} />, label: "Email", val: "wkcacuin@gmail.com" },
+  { icon: <GraduationCap size={16} />, label: "Education", val: "Diploma in CompEng Tech, PUP (2020–2024)" },
+  { icon: <Mail size={16} />, label: "Email", val: "hello@kcacuin.com" },
   { icon: <Handshake size={16} />, label: "Open to", val: "Remote roles, freelance, senior/lead positions" },
 ];
 
@@ -48,21 +48,19 @@ function AnimatedNumber({ target, suffix = "" }: { target: number; suffix?: stri
 const metrics = [
   { num: 3, suffix: "+", label: "Years in production", color: "var(--color-accent)" },
   { num: 5, suffix: "", label: "Production apps shipped", color: "var(--color-teal)" },
-  { num: 4, suffix: "", label: "Engineers led", color: "var(--color-amber)" },
+  { num: 4, suffix: "", label: "Direct reports", color: "var(--color-amber)" },
   { num: 6878, suffix: "", label: "Active users served", color: "var(--color-accent)" },
 ];
 
 export function AboutApp() {
   return (
-    <div style={{ padding: "28px 32px 32px" }}>
-      {/* <SectionLabel>01 · ABOUT</SectionLabel> */}
-      <AppTitle>The person behind the code.</AppTitle>
+    <AppShell title="The person behind the code.">
 
       {[
-        <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>Tech Lead</strong> within three years — at the same company, through shipped features, measurable outcomes, and earned trust.</>,
-        <>My work spans the full stack: mobile-first with Flutter and React Native, backend with Laravel, and everything in between. I don't just write code — I <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>own systems</strong>, make architecture decisions, write ADRs, mentor engineers, and run Agile ceremonies.</>,
+        <>I'm a 24-year-old developer from Caloocan, Philippines who started as an intern in 2023 and grew into a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>Tech Lead</strong> within three years, at the same company, through shipped features, measurable outcomes, and earned trust.</>,
+        <>My work spans the full stack: mobile-first with Flutter and React Native, backend with Laravel, and everything in between. I don't just write code: I <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>own systems</strong>, make architecture decisions, write ADRs, mentor engineers, and run Agile ceremonies.</>,
         <>I also pair heavily with AI: agentic workflows, MCP tooling, and a persistent knowledge vault keep my team shipping faster without cutting corners.</>,
-        <>Outside of work, I'm a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>lay preacher and ministry worker</strong> with a Filipino church team. That work — communicating complex ideas clearly to diverse audiences — sharpens how I think about technical communication and leading teams.</>,
+        <>Outside of work, I'm a <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>lay preacher and ministry worker</strong> with a Filipino church team. That work (communicating complex ideas clearly to diverse audiences) sharpens how I think about technical communication and leading teams.</>,
       ].map((p, i) => (
         <motion.p
           key={i}
@@ -82,7 +80,7 @@ export function AboutApp() {
               fontSize: 11.5,
               color: "var(--color-teal)",
               background: "var(--color-teal-dim)",
-              border: "1px solid rgba(100,255,218,0.15)",
+              border: "1px solid var(--color-teal-border)",
               padding: "4px 12px",
               borderRadius: 100,
             }}
@@ -158,8 +156,8 @@ export function AboutApp() {
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: "rgba(79,110,247,0.15)",
-                border: "1px solid rgba(79,110,247,0.2)",
+                background: "var(--color-accent-fill)",
+                border: "1px solid var(--color-accent-border)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -187,6 +185,6 @@ export function AboutApp() {
           </div>
         ))}
       </motion.div>
-    </div>
+    </AppShell>
   );
 }

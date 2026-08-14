@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Mail, Linkedin, Phone, Github, Download, Send, CheckCircle } from "lucide-react";
-import { AppTitle, stagger } from "./shared";
+import { Mail, Linkedin, Phone, Github, Download, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { AppShell, stagger } from "./shared";
 import { celebrate } from "../../../os/confetti";
 import { playSound } from "../../../os/sounds";
 import cvFile from "../../../assets/KC_Acuin_CV.pdf";
 
+const EMAIL = "hello@kcacuin.com";
+
 const links = [
-  { icon: <Mail size={16} />, label: "wkcacuin@gmail.com", href: "mailto:wkcacuin@gmail.com" },
+  { icon: <Mail size={16} />, label: EMAIL, href: `mailto:${EMAIL}` },
   { icon: <Github size={16} />, label: "github.com/kcacuin", href: "https://github.com/kcacuin" },
   { icon: <Linkedin size={16} />, label: "linkedin.com/in/kcacuin", href: "https://linkedin.com/in/kcacuin" },
   { icon: <Phone size={16} />, label: "+63 956 512 7734", href: "tel:+639565127734" },
@@ -15,20 +17,44 @@ const links = [
 
 export function ContactApp() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  // Honeypot. Hidden from humans and from assistive tech; bots fill it in.
+  const [company, setCompany] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /** Escape hatch for when delivery fails: hands the visitor their own message
+   *  back in their mail client rather than losing it. */
+  const mailtoFallback =
+    `mailto:${EMAIL}` +
+    `?subject=${encodeURIComponent(`Portfolio enquiry from ${form.name || "a visitor"}`)}` +
+    `&body=${encodeURIComponent(form.message)}`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, company }),
+      });
+      const data: { error?: string } = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+
       setSent(true);
       setForm({ name: "", email: "", message: "" });
       playSound("send");
       celebrate();
       setTimeout(() => setSent(false), 5000);
-    }, 1200);
+    } catch (err) {
+      // Deliberately not a success state: the previous version celebrated here
+      // and dropped the message on the floor.
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -52,16 +78,10 @@ export function ContactApp() {
   };
 
   return (
-    <div style={{ padding: "28px 32px 32px" }}>
-      {/* <SectionLabel>06 · CONTACT</SectionLabel> */}
-      <AppTitle>Let's build something.</AppTitle>
-      <motion.p
-        {...stagger(2)}
-        style={{ color: "var(--color-text-muted)", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}
-      >
-        Open to remote roles, freelance work, and senior/lead positions. The fastest way to reach
-        me is email — or drop a message right here.
-      </motion.p>
+    <AppShell
+      title="Let's build something."
+      lede="Open to remote roles, freelance work, and senior/lead positions. The fastest way to reach me is email, or drop a message right here."
+    >
 
       <motion.div {...stagger(3)} style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 26 }}>
         {links.map((l) => (
@@ -126,13 +146,27 @@ export function ContactApp() {
           style={{ ...inputStyle, resize: "vertical", minHeight: 90 }}
           {...focusable}
         />
+
+        {/* Honeypot: off-screen rather than display:none, since some bots skip
+            hidden fields. aria-hidden + tabIndex keep it away from real users. */}
+        <input
+          type="text"
+          name="company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+        />
+
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <button
             type="submit"
             disabled={loading || sent}
             style={{
               flex: 1,
-              minWidth: 160,
+              minWidth: 140,
               background: sent ? "var(--color-teal)" : "var(--color-accent)",
               color: sent ? "#0A0F1E" : "#fff",
               padding: "12px 20px",
@@ -166,7 +200,7 @@ export function ContactApp() {
             download="KC_Acuin_CV.pdf"
             style={{
               flex: 1,
-              minWidth: 160,
+              minWidth: 140,
               border: "1px solid var(--color-border)",
               color: "var(--color-text)",
               padding: "12px 20px",
@@ -193,6 +227,35 @@ export function ContactApp() {
             <Download size={15} /> Download CV
           </a>
         </div>
+
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            role="alert"
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 10,
+              padding: "12px 14px",
+              borderRadius: 10,
+              border: "1px solid rgba(228, 87, 61, 0.35)",
+              background: "rgba(228, 87, 61, 0.10)",
+              fontSize: 13,
+              lineHeight: 1.6,
+              color: "var(--color-text)",
+            }}
+          >
+            <AlertCircle size={15} style={{ flexShrink: 0, marginTop: 2, color: "#E4573D" }} />
+            <span>
+              {error} You can{" "}
+              <a href={mailtoFallback} style={{ color: "var(--color-accent)" }}>
+                email me directly
+              </a>{" "}
+              instead. Your message is already in the link.
+            </span>
+          </motion.div>
+        )}
       </motion.form>
 
       <motion.div
@@ -209,6 +272,6 @@ export function ContactApp() {
       >
         © 2026 KC Acuin · Caloocan, Philippines · Built as a tiny operating system.
       </motion.div>
-    </div>
+    </AppShell>
   );
 }

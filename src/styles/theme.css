@@ -13,10 +13,16 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  /* The card radius the app windows actually use. */
+  --radius-card: 14px;
+  --radius-pill: 100px;
 
   --dur-fast: 0.15s;
   --dur-base: 0.3s;
   --dur-slow: 0.6s;
+
+  /* Theme-independent because both themes want the same 28px strip. */
+  --menubar-h: 28px;
 }
 
 :root,
@@ -37,6 +43,18 @@
   --color-teal-dim: rgba(100, 255, 218, 0.07);
   --color-amber: #F5A623;
   --color-amber-dim: rgba(245, 166, 35, 0.08);
+
+  /* Tinted fills and borders for pills and icon tiles. These existed as
+     hardcoded rgba() literals in six components, which meant they kept the dark
+     accent hue in light mode instead of tracking --color-accent. */
+  --color-accent-fill: rgba(79, 110, 247, 0.15);
+  --color-accent-border: rgba(79, 110, 247, 0.30);
+  --color-teal-fill: rgba(100, 255, 218, 0.12);
+  --color-teal-border: rgba(100, 255, 218, 0.28);
+  --color-amber-fill: rgba(245, 166, 35, 0.12);
+  --color-amber-border: rgba(245, 166, 35, 0.28);
+  /* KAI's brand gradient, previously repeated verbatim in three places. */
+  --gradient-kai: linear-gradient(145deg, #7C5CFC, #4F6EF7);
   --color-nav-bg: rgba(10, 15, 30, 0.92);
   --color-input-bg: #131C35;
   --color-scrollbar: rgba(79, 110, 247, 0.25);
@@ -49,7 +67,6 @@
   --window-bg: rgba(15, 23, 41, 0.78);
   --window-shadow: 0 24px 70px rgba(0, 0, 10, 0.55);
   --window-shadow-focus: 0 32px 90px rgba(0, 0, 10, 0.7), 0 0 0 1px rgba(79, 110, 247, 0.25);
-  --menubar-h: 28px;
 
   /* living wallpaper blobs */
   --wall-blob-1: rgba(79, 110, 247, 0.32);
@@ -57,6 +74,7 @@
   --wall-blob-3: rgba(100, 255, 218, 0.13);
   --wall-blob-4: rgba(245, 166, 35, 0.10);
   --wall-vignette: rgba(0, 0, 8, 0.34);
+  --wall-grain: rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="light"] {
@@ -76,6 +94,16 @@
   --color-teal-dim: rgba(10, 122, 94, 0.07);
   --color-amber: #B8750A;
   --color-amber-dim: rgba(184, 117, 10, 0.08);
+
+  /* Light needs more alpha than dark: a 15% tint that reads as a soft glow on
+     #0A0F1E disappears entirely on #FFFFFF. */
+  --color-accent-fill: rgba(61, 91, 245, 0.10);
+  --color-accent-border: rgba(61, 91, 245, 0.28);
+  --color-teal-fill: rgba(10, 122, 94, 0.10);
+  --color-teal-border: rgba(10, 122, 94, 0.30);
+  --color-amber-fill: rgba(184, 117, 10, 0.10);
+  --color-amber-border: rgba(184, 117, 10, 0.30);
+  --gradient-kai: linear-gradient(145deg, #6B4AE8, #3D5BF5);
   --color-nav-bg: rgba(245, 247, 255, 0.94);
   --color-input-bg: #F0F3FF;
   --color-scrollbar: rgba(61, 91, 245, 0.2);
@@ -93,6 +121,7 @@
   --wall-blob-3: rgba(10, 122, 94, 0.10);
   --wall-blob-4: rgba(184, 117, 10, 0.08);
   --wall-vignette: rgba(30, 45, 120, 0.10);
+  --wall-grain: rgba(30, 45, 120, 0.06);
 }
 
 /* ── Globals ── */
@@ -144,7 +173,10 @@ body {
 .hero-shell {
   align-items: center;
   align-items: safe center;
-  padding: var(--menubar-h) 24px 110px;
+  /* The extra 14px matters: once the content is taller than the viewport,
+     `safe` aligns to start, and the h1's 0.95 line-height then clips its
+     ascenders against the menu bar. */
+  padding: calc(var(--menubar-h) + 14px) 24px 110px;
 }
 
 /* Short viewports: the wrapped hero column is taller than the space, so shed
@@ -159,6 +191,130 @@ body {
   .hero-shell {
     padding-bottom: 76px;
   }
+}
+
+/* Every content app's page shell (see apps/shared.tsx AppShell). The flat
+   28px/32px this replaced spent 64px of a 375px screen on horizontal margin,
+   which is why the narrow breakpoint exists rather than a single value. */
+.app-shell {
+  padding: 28px 32px 32px;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 20px 18px 28px;
+  }
+}
+
+/* Hero calls to action. */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform var(--dur-fast), border-color var(--dur-fast),
+    background var(--dur-fast), box-shadow var(--dur-fast);
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+}
+.hero-cta:active {
+  transform: translateY(0);
+}
+
+.hero-cta--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--color-accent) 38%, transparent);
+}
+.hero-cta--primary:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--color-accent) 46%, transparent);
+}
+
+/* Availability status in the menu bar. The dot pulses slowly enough to read as
+   a live indicator rather than an attention grab; the reduced-motion block at
+   the bottom of this file stops it entirely. */
+.availability {
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+.availability:hover {
+  background: color-mix(in srgb, var(--color-teal) 22%, transparent);
+}
+.availability__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-teal);
+  flex-shrink: 0;
+  animation: availability-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes availability-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.82); }
+}
+
+/* Project case file: screenshots beside the outcomes rather than above them.
+   Container queries would be the right tool (this lives inside a resizable
+   window, not the viewport), but the window is close enough to full width in
+   practice that a media query holds. */
+.case-file {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .case-file {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}
+
+/* The sticky note's resting place. The hero column is centred and capped at
+   1000px, so above ~1300px there is a real gutter to its left and the note sits
+   in it. Below that the gutter closes and the note would land on top of the
+   headline, so it drops to the empty band between the hero copy and the dock. */
+.sticky-note {
+  top: 15%;
+  left: 16px;
+  width: 190px;
+}
+
+@media (max-width: 1300px) {
+  .sticky-note {
+    top: auto;
+    /* Low enough to clear the hero's call-to-action row, which extends further
+       left than the body copy does. */
+    bottom: 7%;
+    left: 16px;
+    width: 172px;
+  }
+}
+
+/* Downloadable rows (Certificates). A :hover rule rather than the imperative
+   onMouseEnter/style pattern the rest of the app uses. */
+.cert-row {
+  transition: opacity var(--dur-fast);
+}
+.cert-row:hover {
+  opacity: 0.72;
 }
 
 /* Keyboard affordance. The app is entirely custom-styled, so without this

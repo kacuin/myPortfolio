@@ -47,7 +47,9 @@ export function Dock() {
         isMobile
           ? {
               position: "fixed",
-              bottom: 10,
+              // Clears the home indicator on notched phones. index.html sets
+              // viewport-fit=cover, without which this inset is always 0.
+              bottom: "calc(10px + env(safe-area-inset-bottom))",
               left: 8,
               right: 8,
               zIndex: 1000,
@@ -56,10 +58,22 @@ export function Dock() {
             }
           : {
               position: "fixed",
-              bottom: 10,
-              left: "calc(50% - 290px)",
+              bottom: "calc(10px + env(safe-area-inset-bottom))",
+              // Full-width flex rather than a hardcoded `left: calc(50% - 290px)`.
+              // Magnification widens the bar, and with only its left edge pinned
+              // the whole dock slid rightward as the cursor swept it. Centering
+              // splits that growth evenly across both ends, so the midpoint holds
+              // still — and it survives adding an app to APPS, which the magic
+              // half-width did not.
+              left: 0,
+              right: 0,
               zIndex: 1000,
-              maxWidth: "calc(100vw - 16px)",
+              display: "flex",
+              justifyContent: "center",
+              // The wrapper now spans the viewport, so it would otherwise eat the
+              // desktop right-click that opens the context menu.
+              pointerEvents: "none",
+              padding: "0 8px",
             }
       }
     >
@@ -81,6 +95,8 @@ export function Dock() {
             "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 0.5px rgba(255,255,255,0.06), 0 16px 50px rgba(0,0,10,0.35)",
           overflowX: isMobile ? "auto" : "visible",
           maxWidth: "100%",
+          // Re-enables hit testing inside the pointerEvents:none wrapper above.
+          pointerEvents: "auto",
         }}
       >
         <DockIcon

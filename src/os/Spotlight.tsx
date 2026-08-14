@@ -88,14 +88,14 @@ export function Spotlight() {
       })),
       ...PROJECT_NAMES.map((p) => ({
         title: p,
-        subtitle: "Project — open in Projects",
+        subtitle: "Project: open in Projects",
         kind: "project" as const,
         keywords: "project work shipped",
         run: openIt("projects"),
       })),
       ...SKILL_NAMES.map((s) => ({
         title: s,
-        subtitle: "Skill — open Skills & Stack",
+        subtitle: "Skill: open Skills & Stack",
         kind: "skill" as const,
         keywords: "skill stack tech",
         run: openIt("skills"),
@@ -138,7 +138,7 @@ export function Spotlight() {
       },
       {
         title: "whoami",
-        subtitle: "kc — mobile dev, team lead, Philippines",
+        subtitle: "kc: mobile dev, team lead, Philippines",
         kind: "egg" as const,
         keywords: "who am i identity about",
         run: openIt("about"),

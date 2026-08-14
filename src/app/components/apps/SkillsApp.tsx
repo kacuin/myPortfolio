@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Smartphone, Globe, Settings, Bot, Crown, Palette } from "lucide-react";
-import { AppTitle, stagger } from "./shared";
+import { AppShell, stagger } from "./shared";
 
 const skills = [
   {
@@ -60,31 +60,27 @@ const stack = [
   {
     label: "DEVOPS",
     chips: ["GitHub Actions", "Docker", "Expo EAS", "Git", "App Store Connect", "Google Play"],
-    highlights: ["GitHub Actions"],
+    highlights: ["GitHub Actions", "Docker", "Expo EAS"],
   },
   {
     label: "AI TOOLS",
-    chips: ["GitHub Copilot", "Claude", "Cursor", "Grok"],
-    highlights: ["GitHub Copilot", "Claude"],
+    chips: ["Claude", "GitHub Copilot", "Cursor", "Grok"],
+    highlights: ["Claude", "GitHub Copilot"],
   },
 ];
 
 export function SkillsApp() {
   return (
-    <div style={{ padding: "28px 32px 32px" }}>
-      {/* <SectionLabel>04 · SKILLS</SectionLabel> */}
-      <AppTitle>What I bring to the table.</AppTitle>
-      <motion.p
-        {...stagger(2)}
-        style={{ color: "var(--color-text-muted)", fontSize: 14, marginBottom: 26, maxWidth: 480 }}
-      >
-        Technical depth across mobile, web, and leadership — plus the AI tooling to move faster than a solo team should.
-      </motion.p>
-
+    <AppShell
+      title="What I bring to the table."
+      lede="Technical depth across mobile, web, and leadership, plus the AI tooling to move faster than a solo team should."
+    >
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          // 240 rather than 280: at 375px the shell leaves 339px, so a 280
+          // minimum only just fit and left no room for the gap.
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           gap: 14,
           marginBottom: 40,
         }}
@@ -140,7 +136,7 @@ export function SkillsApp() {
                     background: "rgba(136,146,176,0.08)",
                     border: "1px solid var(--color-border)",
                     padding: "3px 9px",
-                    borderRadius: 100,
+                    borderRadius: "var(--radius-pill)",
                   }}
                 >
                   {t}
@@ -151,7 +147,6 @@ export function SkillsApp() {
         ))}
       </div>
 
-      {/* <SectionLabel index={9}>05 · TECH STACK</SectionLabel> */}
       <motion.h3
         {...stagger(10)}
         style={{
@@ -197,9 +192,9 @@ export function SkillsApp() {
                       fontWeight: 500,
                       color: hl ? "var(--color-accent)" : "var(--color-text)",
                       background: hl ? "var(--color-accent-dim)" : "var(--color-surface)",
-                      border: `1px solid ${hl ? "rgba(79,110,247,0.4)" : "var(--color-border)"}`,
+                      border: `1px solid ${hl ? "var(--color-accent-border)" : "var(--color-border)"}`,
                       padding: "6px 15px",
-                      borderRadius: 100,
+                      borderRadius: "var(--radius-pill)",
                       cursor: "default",
                     }}
                   >
@@ -211,6 +206,6 @@ export function SkillsApp() {
           </motion.div>
         ))}
       </div>
-    </div>
+    </AppShell>
   );
 }

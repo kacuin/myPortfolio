@@ -40,7 +40,7 @@ export function TrashApp() {
             lineHeight: 1.6,
           }}
         >
-          I don't throw away good ideas — they end up in the vault instead.
+          I don't throw away good ideas; they end up in the vault instead.
         </div>
       </div>
     );

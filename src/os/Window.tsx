@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import {
   animate,
   motion,
@@ -143,6 +143,15 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
   const isFocused = focused === app.id;
   const Content = app.component;
 
+  // Apps are code-split (see apps.ts). The chunk lands within a frame or two on
+  // any real connection, so this is a quiet hold rather than a spinner — a
+  // spinner that flashes for 30ms reads as jank, not as feedback.
+  const body = (
+    <Suspense fallback={<div style={{ minHeight: 120 }} />}>
+      <Content />
+    </Suspense>
+  );
+
   // Animate to/from the dock icon when minimized state flips.
   useEffect(() => {
     if (isMobile) return;
@@ -230,8 +239,16 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
             {app.name}
           </span>
         </div>
-        <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain", paddingBottom: 84 }}>
-          <Content />
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            overscrollBehavior: "contain",
+            // Room for the dock, plus the home indicator beneath it.
+            paddingBottom: "calc(84px + env(safe-area-inset-bottom))",
+          }}
+        >
+          {body}
         </div>
       </motion.div>
     );
@@ -274,15 +291,19 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
           borderRadius: 12,
           overflow: "hidden",
           background: "var(--window-bg)",
-          backdropFilter: "blur(28px) saturate(1.8)",
-          WebkitBackdropFilter: "blur(28px) saturate(1.8)",
+          // A real unfocused window recedes: less blur, less saturation, a
+          // weaker highlight. Previously focused and unfocused differed only by
+          // border colour, so a stack of windows read as equally active.
+          backdropFilter: isFocused ? "blur(28px) saturate(1.8)" : "blur(18px) saturate(1.2)",
+          WebkitBackdropFilter: isFocused ? "blur(28px) saturate(1.8)" : "blur(18px) saturate(1.2)",
           border: `1px solid ${isFocused ? "var(--color-border-hover)" : "var(--color-border)"}`,
-          boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), ${
+          boxShadow: `inset 0 1px 0 rgba(255,255,255,${isFocused ? 0.14 : 0.05}), ${
             isFocused ? "var(--window-shadow-focus)" : "var(--window-shadow)"
           }`,
+          opacity: isFocused ? 1 : 0.94,
           transition: smooth
-            ? "box-shadow 0.25s, border-color 0.25s, width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)"
-            : "box-shadow 0.25s, border-color 0.25s",
+            ? "box-shadow 0.25s, border-color 0.25s, opacity 0.25s, backdrop-filter 0.25s, width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)"
+            : "box-shadow 0.25s, border-color 0.25s, opacity 0.25s, backdrop-filter 0.25s",
         }}
       >
         {/* Title bar — drag handle */}
@@ -332,7 +353,7 @@ export function Window({ app, win }: { app: AppDef; win: WinState }) {
         </div>
 
         <div style={{ flex: 1, overflowY: "auto", overscrollBehavior: "contain" }}>
-          <Content />
+          {body}
         </div>
 
         {/* Resize handles — invisible strips on edges and corners */}

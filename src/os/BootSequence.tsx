@@ -3,21 +3,24 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { EASE } from "./motion";
 import { PROFILE } from "../content/profile";
 
-const SESSION_KEY = "kc-booted";
-const BOOT_MS = 1900;
+const BOOT_KEY = "kc-booted";
+// Trimmed from 1900ms. This runs in front of the content on a first visit, so
+// it has to be short enough to read as a flourish rather than a load screen.
+const BOOT_MS = 1250;
 
 /**
- * Once-per-session cold boot.
+ * Once-ever cold boot.
  *
- * sessionStorage, not localStorage: a returning visitor should see it again on
- * a fresh visit, but not on every route bounce or refresh within one sitting.
- * Click or any key skips.
+ * localStorage, not sessionStorage: this is the first thing a visitor sees, and
+ * a client who comes back to send a message or re-check a case file should land
+ * on the desktop immediately, not behind the splash a second time. Click or any
+ * key skips it.
  */
 export function BootSequence({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
   const [booting, setBooting] = useState(() => {
     try {
-      return sessionStorage.getItem(SESSION_KEY) !== "1";
+      return localStorage.getItem(BOOT_KEY) !== "1";
     } catch {
       return false; // storage blocked — never trap the visitor behind a splash
     }
@@ -30,7 +33,7 @@ export function BootSequence({ children }: { children: React.ReactNode }) {
 
     const finish = () => {
       try {
-        sessionStorage.setItem(SESSION_KEY, "1");
+        localStorage.setItem(BOOT_KEY, "1");
       } catch {
         /* non-fatal */
       }

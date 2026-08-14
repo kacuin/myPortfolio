@@ -19,6 +19,17 @@ type Blob = {
   opacity: number;
 };
 
+/** feTurbulence noise as a data URI: ~200 bytes, no network request, and it
+ *  tiles seamlessly at 160px. */
+const GRAIN =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160">` +
+      `<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>` +
+      `<feColorMatrix type="saturate" values="0"/></filter>` +
+      `<rect width="160" height="160" filter="url(#n)" opacity="0.5"/></svg>`,
+  );
+
 const BLOBS: Blob[] = [
   { color: "var(--wall-blob-1)", size: 58, top: "-18%", left: "-12%", drift: "wall-drift-a", duration: 74, depth: 26, opacity: 1 },
   { color: "var(--wall-blob-2)", size: 48, top: "8%", left: "62%", drift: "wall-drift-b", duration: 88, depth: 18, opacity: 1 },
@@ -57,6 +68,18 @@ export function Wallpaper() {
       {BLOBS.map((b, i) => (
         <ParallaxBlob key={i} blob={b} px={px} py={py} />
       ))}
+
+      {/* Light source, matching the one the window and dock shadows assume:
+          above and slightly left. Without it the blobs read as flat colour. */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(80% 55% at 38% -10%, var(--wall-grain) 0%, transparent 60%)",
+        }}
+      />
+
       {/* vignette sits above the blobs so edges stay grounded */}
       <div
         style={{
@@ -64,6 +87,21 @@ export function Wallpaper() {
           inset: 0,
           background:
             "radial-gradient(120% 100% at 50% 45%, transparent 55%, var(--wall-vignette) 100%)",
+        }}
+      />
+
+      {/* Fine grain over everything. Large smooth gradients band visibly on
+          8-bit displays; a little noise dithers that away and is the difference
+          between "CSS gradient" and "surface". Inline SVG, so no request. */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          opacity: 0.4,
+          mixBlendMode: "overlay",
+          backgroundImage: `url("${GRAIN}")`,
+          backgroundRepeat: "repeat",
         }}
       />
     </div>

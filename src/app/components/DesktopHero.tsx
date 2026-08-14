@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
-import meDayImage from "../../assets/me_day.jpeg";
-import meNightImage from "../../assets/me_night.png";
+import { useWindowManager } from "../../os/WindowManagerContext";
+import meDayImage from "../../assets/me_day.webp";
+import meNightImage from "../../assets/me_night.webp";
 import { PROFILE } from "../../content/profile";
 
 import { EASE } from "../../os/motion";
@@ -12,6 +13,14 @@ import { EASE } from "../../os/motion";
 const phrases = PROFILE.heroPhrases as readonly string[];
 
 const longestPhrase = phrases.reduce((a, b) => (b.length > a.length ? b : a));
+
+/** The three strongest lines from PROFILE.metrics, split so the number can carry
+ *  its own weight. Keep in sync with that list rather than inventing figures. */
+const PROOF = [
+  { value: "6,878", label: "active users" },
+  { value: "5", label: "apps shipped" },
+  { value: "3+", label: "years in production" },
+] as const;
 
 function useTypewriter(items: readonly string[]) {
   const [text, setText] = useState("");
@@ -53,6 +62,7 @@ function useTypewriter(items: readonly string[]) {
 export function DesktopHero() {
   const typeText = useTypewriter(phrases);
   const { theme } = useTheme();
+  const { openApp } = useWindowManager();
 
   return (
     // Alignment and padding live in .hero-shell (theme.css), not inline: the
@@ -112,7 +122,11 @@ export function DesktopHero() {
               // cursor, and a serif fights that terminal motif. The contrast
               // also makes the serif name above land harder.
               fontFamily: "var(--font-ui)",
-              fontSize: "clamp(19px, 2.6vw, 28px)",
+              // The longest phrase is ~24 characters and this line must not
+              // wrap (the invisible sizer below reserves one line's width), so
+              // the lower bound is sized to fit a 320px viewport rather than
+              // chosen for looks.
+              fontSize: "clamp(15px, 2.6vw, 28px)",
               fontWeight: 400,
               color: "var(--color-text-muted)",
               marginBottom: 22,
@@ -158,16 +172,61 @@ export function DesktopHero() {
               maxWidth: 520,
             }}
           >
-            Mobile developer from the Philippines — Tech Lead at{" "}
-            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>
-              Odecci Solutions Inc.
-            </strong>{" "}
-            I ship production apps across Flutter, React Native, iOS, Android, and Laravel,
-            lead{" "}
-            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>four engineers</strong>{" "}
-            across Gulf and Australian client work, and pair heavily with AI — agentic
+            Mobile developer from the Philippines. I ship production apps across Flutter,
+            React Native, iOS, Android, and Laravel. Lead a{" "}
+            <strong style={{ color: "var(--color-text)", fontWeight: 500 }}>four-person team</strong>{" "}
+            across Gulf and Australian client work, and pair heavily with AI agentic
             workflows, MCP tooling, and a knowledge vault that compounds.
           </motion.p>
+
+          {/* Proof, then an ask. The hero previously ended on a passive hint at
+              the dock, so the hard numbers stayed buried in About and nothing on
+              first paint invited a visitor to do anything. */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.62, duration: 0.6, ease: EASE }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px 22px",
+              marginBottom: 24,
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "var(--color-text-subtle)",
+            }}
+          >
+            {PROOF.map((p) => (
+              <span key={p.label} style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                <strong style={{ color: "var(--color-text)", fontSize: 15, fontWeight: 600 }}>
+                  {p.value}
+                </strong>
+                {p.label}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* The hero root is pointerEvents:none so the photo and copy stay
+              decorative; these two controls are the only part that isn't. */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.74, duration: 0.6, ease: EASE }}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 10,
+              marginBottom: 26,
+              pointerEvents: "auto",
+            }}
+          >
+            <button onClick={() => openApp("projects")} className="hero-cta hero-cta--primary">
+              View the work <ArrowRight size={15} />
+            </button>
+            <button onClick={() => openApp("contact")} className="hero-cta">
+              Get in touch
+            </button>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -184,7 +243,7 @@ export function DesktopHero() {
               letterSpacing: "0.08em",
             }}
           >
-            Open an app from the dock below
+            or open an app from the dock
             <motion.span
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}

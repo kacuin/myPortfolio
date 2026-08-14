@@ -139,14 +139,15 @@ export function StickyNote() {
           transition={{ duration: 0.5, ease: EASE }}
           whileHover={{ rotate: -1, scale: 1.02 }}
           whileDrag={{ scale: 1.05, rotate: 1, cursor: "grabbing" }}
+          className="sticky-note"
           style={{
+            // Default position lives in theme.css: the note sits in the left
+            // gutter beside the hero, and that gutter closes below ~1300px, so
+            // it needs a breakpoint rather than one fixed percentage.
             position: "absolute",
-            top: "16%",
-            left: "5%",
             x,
             y,
             zIndex: 2,
-            width: 210,
             padding: "16px 18px 18px",
             borderRadius: 3,
             cursor: "grab",

@@ -1,5 +1,12 @@
-/* Fraunces is loaded variable (opsz/wght/SOFT/WONK) — the opsz axis is why the
-   display serif holds up at both 88px in the hero and 15px on a card title.
-   Weights are clamped to what the app actually uses; widening the ranges here
-   costs real bytes on a cold load. */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* The Google Fonts request lives in index.html, not here.
+   An @import inside this file isn't discovered until index.css has been fetched
+   and parsed, which puts two serialised round trips in front of the first text
+   paint. The <link> in the head is discovered by the preload scanner instead.
+
+   Four families, four jobs (see theme.css for the token mapping):
+     Fraunces       --font-display   documents and headings
+     Space Grotesk  --font-ui        the fake OS's chrome
+     Inter          --font-sans      body copy
+     JetBrains Mono --font-mono      labels, metadata, the terminal
+
+   Keep the href in index.html in sync with the families used in theme.css. */

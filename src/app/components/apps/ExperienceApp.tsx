@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import { AppTitle, stagger, EASE } from "./shared";
+import { AppShell, stagger, EASE } from "./shared";
 
 type Job = {
   title: string;
@@ -22,12 +22,12 @@ const jobs: Job[] = [
     date: "Feb 2026 – Present",
     active: true,
     bullets: [
-      <>Named by the CTO as {strong("Tech Lead")} for code quality, delivery progress, and documentation — leading {strong("four direct reports")} plus an external vendor team whose CMS and mobile deliverables I review and validate continuously.</>,
+      <>Named by the CTO as {strong("Tech Lead")} for code quality, delivery progress, and documentation, leading {strong("four direct reports")} plus an external vendor team whose CMS and mobile deliverables I review and validate continuously.</>,
       <>Lead the {strong("React Native cross-platform migration")} of a Gulf property group's resident-services app: a 262-case regression suite across 16 modules, a 23-screen triaged punch list, and the 2.0 deployment plan.</>,
-      <>Overturned a client-requested rename-and-republish in favour of an in-place store update by citing an {strong("ADR")} identity-preservation finding — removing an entire release cycle and sparing {strong("6,878 active residents")} a forced re-install and re-registration.</>,
-      <>Resolved {strong("99 of 102 support tickets (97%)")} across three production mobile products in seven months — booking, chat, notifications, tenant data, leasing, and release stability.</>,
-      <>Designed and ran the company's {strong("internship programme")} end to end — roadmap, screening exams, and interviews; pooled 10–20 candidates, shortlisted 5, onboarded 3.</>,
-      "Sole owner of an Australian client engagement end to end — environment, deploy workflow, domain and SSL, Laravel scaffold, and AI tooling.",
+      <>Overturned a client-requested rename-and-republish in favour of an in-place store update by citing an {strong("ADR")} identity-preservation finding, removing an entire release cycle and sparing {strong("6,878 active residents")} a forced re-install and re-registration.</>,
+      <>Resolved {strong("99 of 102 support tickets (97%)")} across three production mobile products in seven months: booking, chat, notifications, tenant data, leasing, and release stability.</>,
+      <>Designed and ran the company's {strong("internship programme")} end to end: roadmap, screening exams, and interviews; pooled 10–20 candidates, shortlisted 5, onboarded 3.</>,
+      "Sole owner of an Australian client engagement end to end: environment, deploy workflow, domain and SSL, Laravel scaffold, and AI tooling.",
       <>Mobile lead for an {strong("all-in-one service booking platform")} in Flutter, integrating Firebase, Google Maps API, and third-party SDKs.</>,
       "Instituted the team's operating cadence: written work logs, a shared blocker register, and a 24-hour PR-review SLA.",
     ],
@@ -38,7 +38,7 @@ const jobs: Job[] = [
     date: "Oct 2025 – Jan 2026",
     active: false,
     bullets: [
-      <>Appointed Acting Tech Lead while continuing IC responsibilities — drove all Agile ceremonies for {strong("4 engineers")}.</>,
+      <>Appointed Acting Tech Lead while continuing IC responsibilities, driving all Agile ceremonies for {strong("2 engineers")}.</>,
       <>Owned technical decisions and authored the team's first {strong("Architecture Decision Records (ADRs)")}.</>,
       <>Built and maintained CI/CD pipelines using {strong("GitHub Actions + Expo EAS + Docker")}.</>,
     ],
@@ -49,8 +49,8 @@ const jobs: Job[] = [
     date: "Jan 2024 – Sep 2025",
     active: false,
     bullets: [
-      <>Sole maintainer of the company's entire mobile portfolio — {strong("iOS (Swift/Obj-C), Android (Kotlin/Java), React Native")} — five production apps on the App Store and Google Play.</>,
-      <>Rebuilt the in-app customer-service {strong("chat attachment and image pipeline")} on the native iOS app — traced blank-image failures to a discarded error parameter in the image-loading callback and a client/server contract mismatch in how message text and file URLs travelled.</>,
+      <>Sole maintainer of the company's entire mobile portfolio ({strong("iOS (Swift/Obj-C), Android (Kotlin/Java), React Native")}): five production apps on the App Store and Google Play.</>,
+      <>Rebuilt the in-app customer-service {strong("chat attachment and image pipeline")} on the native iOS app, tracing blank-image failures to a discarded error parameter in the image-loading callback and a client/server contract mismatch in how message text and file URLs travelled.</>,
       <>Established AI-assisted development as standard workflow, backed by a {strong("persistent engineering knowledge vault")}.</>,
     ],
   },
@@ -108,15 +108,10 @@ export function ExperienceApp() {
   const [expanded, setExpanded] = useState<number | null>(0);
 
   return (
-    <div style={{ padding: "28px 32px 32px" }}>
-      {/* <SectionLabel>02 · EXPERIENCE</SectionLabel> */}
-      <AppTitle>Where I've worked.</AppTitle>
-      <motion.p
-        {...stagger(2)}
-        style={{ color: "var(--color-text-muted)", fontSize: 14, marginBottom: 32 }}
-      >
-        A single company, five roles, three years — each one earned.
-      </motion.p>
+    <AppShell
+      title="Where I've worked."
+      lede="A single company, five roles, three years, each one earned."
+    >
 
       <div style={{ position: "relative" }}>
         <div
@@ -148,7 +143,7 @@ export function ExperienceApp() {
                 background: job.active ? "var(--color-accent)" : "var(--color-surface)",
                 border: "2px solid var(--color-accent)",
                 zIndex: 1,
-                boxShadow: job.active ? "0 0 0 4px rgba(79,110,247,0.2)" : "none",
+                boxShadow: job.active ? "0 0 0 4px var(--color-accent-fill)" : "none",
               }}
             />
 
@@ -192,7 +187,7 @@ export function ExperienceApp() {
                         fontSize: 11,
                         color: "var(--color-amber)",
                         background: "var(--color-amber-dim)",
-                        border: "1px solid rgba(245,166,35,0.2)",
+                        border: "1px solid var(--color-amber-border)",
                         padding: "3px 10px",
                         borderRadius: 100,
                         whiteSpace: "nowrap",
@@ -235,6 +230,6 @@ export function ExperienceApp() {
           </motion.div>
         ))}
       </div>
-    </div>
+    </AppShell>
   );
 }

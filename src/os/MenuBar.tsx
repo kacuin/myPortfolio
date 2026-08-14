@@ -7,6 +7,7 @@ import { useWindowManager } from "./WindowManagerContext";
 import { useIsMobile } from "./useIsMobile";
 import { ThemeToggle } from "../app/components/ThemeToggle";
 import { Clock } from "./Clock";
+import { PROFILE } from "../content/profile";
 import cvFile from "../assets/KC_Acuin_CV.pdf";
 
 type MenuItem = { label: string; action?: () => void; disabled?: boolean };
@@ -271,6 +272,34 @@ export function MenuBar() {
       )}
 
       <div style={{ flex: 1 }} />
+
+      {/* The one thing on screen at first paint that asks for the work. A status
+          item is native furniture in a menu bar, so it can be permanent without
+          reading as a banner. */}
+      <button
+        onClick={() => openApp("contact")}
+        title={PROFILE.openTo}
+        className="availability"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 7,
+          border: "1px solid var(--color-teal-border)",
+          background: "var(--color-teal-fill)",
+          color: "var(--color-teal)",
+          borderRadius: "var(--radius-pill)",
+          padding: isMobile ? "2px 8px" : "1px 11px",
+          marginRight: isMobile ? 6 : 12,
+          fontFamily: "var(--font-mono)",
+          fontSize: 9,
+          lineHeight: 1.6,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        <span className="availability__dot" aria-hidden />
+        {isMobile ? "Available" : "Available for work"}
+      </button>
 
       <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 6 : 10 }}>
         {!isMobile && iconLink("https://github.com/kcacuin", "GitHub", <Github size={13} />)}

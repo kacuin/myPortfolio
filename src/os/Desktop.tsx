@@ -35,7 +35,7 @@ function CursorGlow() {
         width: 400,
         height: 400,
         borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(79,110,247,0.10) 0%, transparent 70%)",
+        background: "radial-gradient(circle, var(--color-accent-dim) 0%, transparent 70%)",
         transform: "translate(-50%, -50%)",
         pointerEvents: "none",
         zIndex: 0,
@@ -102,7 +102,9 @@ export function Desktop() {
     >
       {/* Wallpaper layers */}
       <Wallpaper />
-      <CursorGlow />
+      {/* Tracks the mouse, so on a touch device it is a fixed layer that can
+          never do anything. */}
+      {!isMobile && <CursorGlow />}
       <DesktopHero />
       <StickyNote />
 

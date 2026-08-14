@@ -4,11 +4,29 @@
     <head>
       
       <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!-- viewport-fit=cover so the dock can pad itself past the home indicator
+           with env(safe-area-inset-bottom); without it the inset is always 0. -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
       <!-- Page title and meta description are injected from src/content/profile.ts
            by vite-plugins/seoContent.ts — keep them in one place, not here. -->
+
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <!-- Matches --color-bg in each theme so mobile browser chrome blends in. -->
+      <meta name="theme-color" content="#0A0F1E" media="(prefers-color-scheme: dark)" />
+      <meta name="theme-color" content="#F5F7FF" media="(prefers-color-scheme: light)" />
+
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <!-- Loaded here rather than via @import in styles/fonts.css: an @import
+           inside a stylesheet isn't discovered until that stylesheet has been
+           fetched and parsed, which serialises two round trips in front of the
+           first text paint. A link in the head is discovered immediately. -->
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      />
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
       <!-- Resolve the theme before first paint. React sets the same attribute,
            but from an effect — which is one frame too late and shows a

@@ -18,9 +18,10 @@ import {
   PawPrint,
   Gem,
 } from "lucide-react";
-import { AppTitle, stagger, EASE } from "./shared";
+import { AppTitle, Bullet, Pill, stagger, EASE } from "./shared";
 import { SPRING_CARD } from "../../../os/motion";
 import { useIsMobile } from "../../../os/useIsMobile";
+import { LQIP } from "../../../assets/projects/lqip";
 
 type Project = {
   slug: string;
@@ -43,9 +44,15 @@ const screenModules = import.meta.glob<string>(
   { eager: true, import: "default" },
 );
 const screensBySlug: Record<string, string[]> = {};
+/** Blurred stand-ins in the same order as screensBySlug, so a device frame shows
+ *  the shot's colours immediately instead of a black rectangle. */
+const placeholdersBySlug: Record<string, string[]> = {};
 for (const [path, url] of Object.entries(screenModules).sort(([a], [b]) => a.localeCompare(b))) {
-  const slug = path.match(/projects\/([^/]+)\//)?.[1];
-  if (slug) (screensBySlug[slug] ??= []).push(url);
+  const match = path.match(/projects\/([^/]+)\/([^/]+)$/);
+  if (!match) continue;
+  const [, slug, file] = match;
+  (screensBySlug[slug] ??= []).push(url);
+  (placeholdersBySlug[slug] ??= []).push(LQIP[`${slug}/${file}`] ?? "");
 }
 
 const projects: Project[] = [
@@ -76,31 +83,31 @@ const projects: Project[] = [
     status: "Personal",
     statusColor: "var(--color-accent)",
     description:
-      "Offline-first personal finance app built solo across 14 AI-paired development waves. Budgeting, recurring transactions, goals, reports, and reminders — all local, all encrypted, no account required.",
+      "Offline-first personal finance app built solo across 14 AI-paired development waves. Budgeting, recurring transactions, goals, reports, and reminders, all local, all encrypted, no account required.",
     tags: ["Flutter", "Isar", "Riverpod", "Encryption", "Gemini API", "Local Notifications"],
     year: "2026",
     role: "Solo Builder",
     highlights: [
       "Field-level AES encryption at rest + encrypted password-protected backups",
       "Biometric app lock (Face ID / BiometricPrompt)",
-      "Recurring transactions materialized lazily — no background scheduler needed",
+      "Recurring transactions materialized lazily, no background scheduler needed",
       "PDF/CSV export, budget alerts, and goal automation, fully offline",
       "Streaming AI advisor with bring-your-own-key and full offline fallback",
-      "Crash-safe encryption key rotation — no half-rotated database on interrupt",
+      "Crash-safe encryption key rotation, no half-rotated database on interrupt",
       "Built in 14 structured waves pairing with AI agents end-to-end",
     ],
   },
   {
     slug: "resident-services",
     title: "Resident Services App",
-    type: "Mobile · iOS → React Native",
+    type: "Mobile · Native iOS & Android → React Native",
     icon: <MessageSquare size={20} />,
     status: "Client work",
     statusColor: "var(--color-amber)",
     description:
-      "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase — most notably the in-app customer-service chat: attachments, image messaging, and the delivery pipeline behind them. Now leads the cross-platform React Native 2.0 migration.",
+      "Resident-services iOS app for a regional property group. Owned the native Swift/UIKit codebase, most notably the in-app customer-service chat: attachments, image messaging, and the delivery pipeline behind them. Now leads the cross-platform React Native 2.0 migration.",
     tags: ["Swift", "UIKit", "Objective-C", "React Native", "REST", "SDWebImage"],
-    year: "2025–2026",
+    year: "2025 – Present",
     role: "iOS Developer → Migration Lead",
     highlights: [
       "Rebuilt chat attachments: file cards, image upload, and rendering pipeline",
@@ -118,9 +125,9 @@ const projects: Project[] = [
     status: "Client work",
     statusColor: "var(--color-teal)",
     description:
-      "Membership privileges app for a hospitality group — a digital membership card with QR verification plus a catalog of member privileges across the group's hotels, vendors, and business units. Shipped to both app stores via Expo EAS.",
+      "Membership privileges app for a hospitality group: a digital membership card with QR verification plus a catalog of member privileges across the group's hotels, vendors, and business units. Shipped to both app stores via Expo EAS.",
     tags: ["React Native", "Expo", "Redux", "NativeWind", "EAS"],
-    year: "2025–Present",
+    year: "2025 – Present",
     role: "Mobile Engineer",
     highlights: [
       "Digital membership card with QR code verification",
@@ -138,7 +145,7 @@ const projects: Project[] = [
     status: "Client work",
     statusColor: "var(--color-accent)",
     description:
-      "Livestock herd-management field app for an agricultural agency — digitizes animal, herd, and farmer registries for technicians and farmers working offline in the field.",
+      "Livestock herd-management field app for an agricultural agency, digitizing animal, herd, and farmer registries for technicians and farmers working offline in the field.",
     tags: ["Kotlin", "Android", "MVVM", "Hilt", "Retrofit"],
     year: "2026",
     role: "Mobile Engineer",
@@ -176,7 +183,7 @@ const projects: Project[] = [
     status: "Ongoing",
     statusColor: "var(--color-accent)",
     description:
-      "Internal procurement project tracker for a state university. Completed full SDLC — from requirements gathering to deployment and ongoing maintenance.",
+      "Internal procurement project tracker for a state university. Completed full SDLC: from requirements gathering to deployment and ongoing maintenance.",
     tags: ["Laravel", "PHP", "MySQL", "Tailwind CSS", "Alpine.js"],
     year: "2024–Present",
     role: "Full Stack Dev",
@@ -195,14 +202,19 @@ const slideVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? -70 : 70, opacity: 0 }),
 };
 
+/** Shared so the dot strip below the frame can line up with the frame's left
+ *  edge instead of carrying a hardcoded offset that drifts when either changes. */
+const ARROW_SIZE = 30;
+const CAROUSEL_GAP = 14;
+
 function CarouselArrow({ side, onClick }: { side: "left" | "right"; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
       aria-label={side === "left" ? "Previous screen" : "Next screen"}
       style={{
-        width: 30,
-        height: 30,
+        width: ARROW_SIZE,
+        height: ARROW_SIZE,
         borderRadius: "50%",
         border: "1px solid var(--color-border)",
         background: "var(--color-surface)",
@@ -218,7 +230,15 @@ function CarouselArrow({ side, onClick }: { side: "left" | "right"; onClick: () 
   );
 }
 
-function ScreensCarousel({ project, screens }: { project: Project; screens: string[] }) {
+function ScreensCarousel({
+  project,
+  screens,
+  placeholders,
+}: {
+  project: Project;
+  screens: string[];
+  placeholders: string[];
+}) {
   const [[index, dir], setPage] = useState<[number, number]>([0, 0]);
   const isPhone = !project.type.startsWith("Web");
   const many = screens.length > 1;
@@ -239,7 +259,7 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
         SCREENS
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: CAROUSEL_GAP }}>
         {many && <CarouselArrow side="left" onClick={() => paginate(-1)} />}
 
         <div
@@ -286,6 +306,22 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
           )}
 
           <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
+            {/* Sits behind the real screenshot for the frame or two it takes to
+                decode, so the frame never flashes empty. */}
+            {placeholders[index] && (
+              <div
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: `url(${placeholders[index]})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "top",
+                  filter: "blur(12px)",
+                  transform: "scale(1.1)",
+                }}
+              />
+            )}
             <AnimatePresence initial={false} custom={dir}>
               <motion.img
                 key={index}
@@ -313,6 +349,8 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
                   objectPosition: "top",
                 }}
                 draggable={false}
+                decoding="async"
+                loading={index === 0 ? "eager" : "lazy"}
               />
             </AnimatePresence>
           </div>
@@ -322,7 +360,14 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
       </div>
 
       {many && (
-        <div style={{ display: "flex", gap: 6, marginTop: 12, marginLeft: 44 }}>
+        <div
+          style={{
+            display: "flex",
+            gap: 6,
+            marginTop: 12,
+            marginLeft: ARROW_SIZE + CAROUSEL_GAP,
+          }}
+        >
           {screens.map((_, i) => (
             <button
               key={i}
@@ -348,6 +393,7 @@ function ScreensCarousel({ project, screens }: { project: Project; screens: stri
 
 function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
   const screens = screensBySlug[project.slug] ?? [];
+  const placeholders = placeholdersBySlug[project.slug] ?? [];
   return (
     <motion.div
       key="detail"
@@ -355,7 +401,7 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 30 }}
       transition={{ duration: 0.3, ease: EASE }}
-      style={{ padding: "24px 32px 32px" }}
+      className="app-shell"
     >
       <button
         onClick={onBack}
@@ -418,56 +464,42 @@ function Detail({ project, onBack }: { project: Project; onBack: () => void }) {
         {project.description}
       </p>
 
-      {screens.length > 0 && <ScreensCarousel project={project} screens={screens} />}
+      {/* Two columns where there's room: one tall device frame stacked above the
+          highlights pushed every outcome below the fold, which is the part a
+          client is actually reading for. Collapses to one column under 720px. */}
+      <div className="case-file">
+        {screens.length > 0 && (
+          <div className="case-file__screens">
+            <ScreensCarousel project={project} screens={screens} placeholders={placeholders} />
+          </div>
+        )}
 
-      <div
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: 11.5,
-          color: "var(--color-accent)",
-          letterSpacing: "0.15em",
-          marginBottom: 12,
-        }}
-      >
-        HIGHLIGHTS
-      </div>
-      <ul style={{ listStyle: "none", marginBottom: 24 }}>
-        {project.highlights.map((h, i) => (
-          <li
-            key={i}
-            style={{
-              fontSize: 14,
-              color: "var(--color-text-muted)",
-              padding: "5px 0 5px 18px",
-              position: "relative",
-              lineHeight: 1.65,
-            }}
-          >
-            <span style={{ position: "absolute", left: 0, top: 7, color: "var(--color-accent)", fontSize: 11 }}>
-              ▸
-            </span>
-            {h}
-          </li>
-        ))}
-      </ul>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {project.tags.map((t) => (
-          <span
-            key={t}
+        <div style={{ minWidth: 0 }}>
+          <div
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 11.5,
-              color: "var(--color-teal)",
-              background: "var(--color-teal-dim)",
-              border: "1px solid rgba(100,255,218,0.15)",
-              padding: "4px 12px",
-              borderRadius: 100,
+              color: "var(--color-accent)",
+              letterSpacing: "0.15em",
+              marginBottom: 12,
             }}
           >
-            {t}
-          </span>
-        ))}
+            HIGHLIGHTS
+          </div>
+          <ul style={{ listStyle: "none", marginBottom: 24 }}>
+            {project.highlights.map((h, i) => (
+              <Bullet key={i}>{h}</Bullet>
+            ))}
+          </ul>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {project.tags.map((t) => (
+              <Pill key={t} tone="teal">
+                {t}
+              </Pill>
+            ))}
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -530,7 +562,7 @@ function ParallaxCard({
           height: "100%",
           background: "var(--color-surface)",
           border: `1px solid ${hovered ? "var(--color-border-hover)" : "var(--color-border)"}`,
-          borderRadius: 14,
+          borderRadius: "var(--radius-card)",
           padding: 20,
           cursor: "pointer",
           transition: "border-color 0.2s, box-shadow 0.3s",
@@ -555,6 +587,8 @@ function ParallaxCard({
               src={cover}
               alt=""
               draggable={false}
+              loading="lazy"
+              decoding="async"
               style={{
                 x: imgX,
                 y: imgY,
@@ -624,7 +658,7 @@ function ParallaxCard({
                 color: project.statusColor,
                 border: `1px solid ${project.statusColor}`,
                 padding: "2px 9px",
-                borderRadius: 100,
+                borderRadius: "var(--radius-pill)",
                 opacity: 0.9,
               }}
             >
@@ -685,15 +719,14 @@ export function ProjectsApp() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3, ease: EASE }}
-          style={{ padding: "28px 32px 32px" }}
+          className="app-shell"
         >
-          {/* <SectionLabel>03 · PROJECTS</SectionLabel> */}
           <AppTitle>Things I've shipped.</AppTitle>
           <motion.p
             {...stagger(2)}
             style={{ color: "var(--color-text-muted)", fontSize: 14, marginBottom: 26 }}
           >
-            Production apps and systems — click one to open its case file.
+            Production apps and systems. Click one to open its case file.
           </motion.p>
 
           <div
